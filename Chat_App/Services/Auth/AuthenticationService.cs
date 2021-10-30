@@ -62,7 +62,9 @@ namespace Chat_App.Services.Auth
                 UserName = regUser.UserName,
                 UserEmail = regUser.Email,
                 UserAge = regUser.Age,
-                Password = BCrypt.Net.BCrypt.HashPassword(regUser.Password)
+                Password = BCrypt.Net.BCrypt.HashPassword(regUser.Password),
+                RoomId=1
+                
             };
             _iUserRepo.CreateUser(user);
             return user;

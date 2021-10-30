@@ -19,6 +19,7 @@ namespace Chat_App.Data
                 throw new ArgumentException(nameof(user));
             }
             _context.Users.Add(user);
+            _context.SaveChanges();
         }
 
         public void DeleteUser(User user)
@@ -28,6 +29,7 @@ namespace Chat_App.Data
                 throw new ArgumentException(nameof(user));
             }
             _context.Users.Remove(user);
+            _context.SaveChanges();
         }
 
         public IEnumerable<User> GetAllUsers() => _context.Users.ToList();
@@ -35,8 +37,6 @@ namespace Chat_App.Data
         public User GetUserById(int id) => _context.Users.FirstOrDefault(u => u.Id == id);
 
         public User GetUserByUserName(string userName)=> _context.Users.FirstOrDefault(u => u.UserName == userName);
-
-        public bool SaveChanges() => _context.SaveChanges() >= 0;
 
         public void UpdateUser(User user)
         {

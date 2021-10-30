@@ -54,7 +54,6 @@ namespace Chat_App.Controllers
             //Add Validition
             var userModel = _mapper.Map<User>(userCreateDto);
             _repository.CreateUser(userModel);
-            _repository.SaveChanges();
 
             var userReadDto = _mapper.Map<UserReadDto>(userModel);
 
@@ -73,7 +72,6 @@ namespace Chat_App.Controllers
 
             _repository.UpdateUser(userModelFromRepo);
 
-            _repository.SaveChanges();
 
             return NoContent();
         }
@@ -99,7 +97,6 @@ namespace Chat_App.Controllers
 
             _repository.UpdateUser(userModelFromRepo);
 
-            _repository.SaveChanges();
 
             return NoContent();
         }
@@ -115,7 +112,6 @@ namespace Chat_App.Controllers
 
             _repository.DeleteUser(userModelFromRepo);
 
-            _repository.SaveChanges();
 
             return NoContent();
         }

@@ -7,8 +7,6 @@ namespace Chat_App.Data
 {
 	public interface IUserRepo
 	{
-		bool SaveChanges();
-
 		IEnumerable<User> GetAllUsers();
 		User GetUserById(int id);
 		User GetUserByUserName(string userName);

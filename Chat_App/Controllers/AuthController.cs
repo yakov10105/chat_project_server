@@ -46,7 +46,7 @@ namespace Chat_App.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register(UserRegisterDto regUser)
+        public IActionResult Register([FromBody] UserRegisterDto regUser)
         {
             return Created("Success", _iAuthService.RegisterUser(regUser));
         }
