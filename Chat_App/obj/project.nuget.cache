@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "s5s6q71+Hun4lMIANF4WZeUQhO0FcUSp3rD11HJYqiQZ2U4pSDpHotntbY0/vL06xYq5mxxknCHWxzrDbYLqpg==",
+  "dgSpecHash": "qPvyV+1pqwSHF8sX9a5ahfeYJgETyyPlkxI/HQKckzFO85IQDwiFCeuMu6jtorK3pwLVeDdxQFeftOrT4njJbQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Yakov\\Desktop\\Project_Chat\\chat_app_server\\Chat_App\\Chat_App.csproj",
+  "projectFilePath": "C:\\Users\\Yakov\\Documents\\GitHub\\chat_project_server\\Chat_App\\Chat_App.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yakov\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\Yakov\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",

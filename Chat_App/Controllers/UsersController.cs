@@ -26,7 +26,8 @@ namespace Chat_App.Controllers
         }
 
         //GET api/Users
-        [HttpGet]
+        [Authorize]
+        [HttpGet("all")]
         public ActionResult<IEnumerable<UserReadDto>> GetAllUsers()
         {
             var users = _repository.GetAllUsers();

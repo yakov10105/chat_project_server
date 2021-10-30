@@ -38,7 +38,7 @@ namespace Chat_App.Controllers
                 HttpContext.Response.Headers.Add("Authorization", $"Bearer {token}");
                 Request.Headers.Add("Authorization", $"Bearer {token}");
 
-                return Ok(new {message ="Connected !" });
+                return Ok(new {key =$"Bearer {token}" });
             }
             return Unauthorized();
 
