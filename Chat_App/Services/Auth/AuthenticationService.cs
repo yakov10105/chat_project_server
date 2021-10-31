@@ -53,15 +53,16 @@ namespace Chat_App.Services.Auth
 
         }
 
-        public User RegisterUser(UserRegisterDto regUser)
+        public User RegisterUser(UserCreateDto regUser)
         {
             var user = new User
             {
                 FirstName = regUser.FirstName,
                 LastName = regUser.LastName,
                 UserName = regUser.UserName,
-                UserEmail = regUser.Email,
-                UserAge = regUser.Age,
+                UserEmail = regUser.UserEmail,
+                UserAge = regUser.UserAge,
+                WinCoins = 200,
                 Password = BCrypt.Net.BCrypt.HashPassword(regUser.Password),
                 RoomId=1
                 

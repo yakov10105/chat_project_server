@@ -16,6 +16,6 @@ namespace Chat_App.Services.Auth
 
         string Authenticate(UserLoginDto loginUser);
 
-        User RegisterUser(UserRegisterDto regUser);
+        User RegisterUser(UserCreateDto regUser);
     }
 }

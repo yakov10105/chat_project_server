@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Chat_App.Data;
 using Chat_App.Data.DbConfig;
+using Chat_App.Services.ChatService;
+using Chat_App.Services.ChatService.Hubs;
 using Chat_App.Services.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -42,8 +45,6 @@ namespace Chat_App
 
             services.AddScoped<Services.Auth.IAuthenticationService, Services.Auth.AuthenticationService>();
 
-            services.AddSignalR();
-
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -66,6 +67,10 @@ namespace Chat_App
 
             services.AddMvc();
 
+            services.AddSingleton<IDictionary<string, UserConnection>>(options => new Dictionary<string, UserConnection>());
+
+            services.AddSignalR();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ChatAppDbContext dbContext)
@@ -80,7 +85,7 @@ namespace Chat_App
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseCors(options => options
+            app.UseCors(builder => builder
                 .WithOrigins(new[] { "http://localhost:3000" })
                 .AllowAnyHeader()
                 .AllowAnyMethod()
@@ -93,6 +98,7 @@ namespace Chat_App
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chat");
             });
         }
     }

@@ -49,7 +49,7 @@ namespace Chat_App.Controllers
         }
 
         [HttpPost]
-        public ActionResult<UserCreateDto> CreateCommand(UserCreateDto userCreateDto)
+        public ActionResult<UserCreateDto> CreateUser(UserCreateDto userCreateDto)// we get the user back in the client side
         {
             //Add Validition
             var userModel = _mapper.Map<User>(userCreateDto);
