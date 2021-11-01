@@ -19,25 +19,16 @@ namespace Chat_App.Services.Auth
         private readonly IUserRepo _iUserRepo;
         private readonly IJwtService _iJwtService;
 
-        public AuthenticationService(IUserRepo userRepo,IJwtService iJwtService)
+        public AuthenticationService(IUserRepo userRepo, IJwtService iJwtService)
         {
             _iUserRepo = userRepo;
             _iJwtService = iJwtService;
         }
 
 
-        public User AuthenticateEmail(UserLoginDto loginUser)
-        {
-            return _iUserRepo.GetUserByUserName(loginUser.UserName);
-        }
+        public User AuthenticateEmail(UserLoginDto loginUser) => _iUserRepo.GetUserByUserName(loginUser.UserName);
 
-        public bool AuthenticatePassword(UserLoginDto loginUser, User systemUser)
-        {
-            if (BCrypt.Net.BCrypt.Verify(loginUser.Password, systemUser.Password))
-                return true;
-            return false;
-                                
-        }
+        public bool AuthenticatePassword(UserLoginDto loginUser, User systemUser) => BCrypt.Net.BCrypt.Verify(loginUser.Password, systemUser.Password);
 
         public string Authenticate(UserLoginDto loginUser)
         {
@@ -48,9 +39,6 @@ namespace Chat_App.Services.Auth
 
             //if we've got here - means user exist.
             return _iJwtService.Generate(user);
-
-
-
         }
 
         public User RegisterUser(UserCreateDto regUser)
@@ -64,8 +52,8 @@ namespace Chat_App.Services.Auth
                 UserAge = regUser.UserAge,
                 WinCoins = 200,
                 Password = BCrypt.Net.BCrypt.HashPassword(regUser.Password),
-                RoomId=1
-                
+                RoomId = 1
+
             };
             _iUserRepo.CreateUser(user);
             return user;

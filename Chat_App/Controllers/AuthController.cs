@@ -6,25 +6,33 @@ using Chat_App.Services.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Chat_App.Dtos;
+using Chat_App.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
+using Newtonsoft.Json;
 
 namespace Chat_App.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : ControllerBase //Acount
     {
         private readonly IAuthenticationService _iAuthService;
+        private readonly IUserRepo _repository;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthenticationService iAuth)
+        public AuthController(IAuthenticationService iAuth, IUserRepo repository, IMapper mapper)
         {
             _iAuthService = iAuth;
+            _repository = repository;
+            _mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -37,8 +45,16 @@ namespace Chat_App.Controllers
             {
                 HttpContext.Response.Headers.Add("Authorization", $"Bearer {token}");
                 Request.Headers.Add("Authorization", $"Bearer {token}");
+                var userFromData = _repository.GetUserByUserName(loginUser.UserName);
 
-                return Ok(new {key =$"Bearer {token}" });
+                if (userFromData != null)
+                {
+                    return Ok(new
+                    {
+                        key = $"Bearer {token}",
+                        user = _mapper.Map<UserReadDto>(userFromData)
+                    });
+                }
             }
             return Unauthorized();
 
@@ -46,9 +62,14 @@ namespace Chat_App.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody] UserCreateDto regUser)
+        public IActionResult Register([FromBody] UserCreateDto userCreateDto)
         {
-            return Created("Success", _iAuthService.RegisterUser(regUser));
+            var userModel = _mapper.Map<User>(userCreateDto);
+            var user = _iAuthService.RegisterUser(userCreateDto);
+
+            var userReadDto = _mapper.Map<UserReadDto>(userModel);
+
+            return Created("Success", user);
         }
 
         [Authorize]
