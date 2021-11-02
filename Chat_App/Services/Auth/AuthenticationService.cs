@@ -1,6 +1,7 @@
 ﻿using Chat_App.Data;
 using Chat_App.Dtos;
 using Chat_App.Models;
+using Chat_App.Services.Auth.Exeptions;
 using Chat_App.Services.JWT;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -33,16 +34,23 @@ namespace Chat_App.Services.Auth
         public string Authenticate(UserLoginDto loginUser)
         {
             var user = this.AuthenticateEmail(loginUser);
-            if (user == null) return null;
+            if (user == null)
+            {
+                throw new Exception("One of the fields is Incorrect.");
+            }
             if (!this.AuthenticatePassword(loginUser, user))
-                return null;
-
-            //if we've got here - means user exist.
+            {
+                throw new Exception("One of the fields is Incorrect.");
+            }
             return _iJwtService.Generate(user);
         }
 
         public User RegisterUser(UserCreateDto regUser)
         {
+            if (!CheckUserNameNotExist(regUser))
+                throw new UserNameAlreadyExistExeption("* This Username already exists in the system.");
+            if (!CheckEmailNotExist(regUser))
+                throw new EmailAlreadyExistExeption("* This Email already exists in the system.");
             var user = new User
             {
                 FirstName = regUser.FirstName,
@@ -57,6 +65,21 @@ namespace Chat_App.Services.Auth
             };
             _iUserRepo.CreateUser(user);
             return user;
+        }
+
+        private bool CheckEmailNotExist(UserCreateDto regUser)
+        {
+            if (_iUserRepo.GetAllUsers().FirstOrDefault(u => u.UserEmail == regUser.UserEmail) != null)
+                return false;
+            else
+                return true;
+        }
+        private bool CheckUserNameNotExist(UserCreateDto regUser)
+        {
+            if (_iUserRepo.GetAllUsers().FirstOrDefault(u => u.UserName == regUser.UserName) != null)
+                return false;
+            else
+                return true;
         }
     }
 }

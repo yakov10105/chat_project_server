@@ -2,20 +2,11 @@
 using Chat_App.Dtos;
 using Chat_App.Models;
 using Chat_App.Services.Auth;
-using Chat_App.Services.JWT;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Chat_App.Dtos;
-using Chat_App.Models;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using AutoMapper;
-using Newtonsoft.Json;
+using Chat_App.Services.Auth.Exeptions;
+using System;
 
 namespace Chat_App.Controllers
 {
@@ -39,12 +30,9 @@ namespace Chat_App.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] UserLoginDto loginUser)
         {
-            var token = _iAuthService.Authenticate(loginUser);
-
-            if (token != null)
+            try
             {
-                HttpContext.Response.Headers.Add("Authorization", $"Bearer {token}");
-                Request.Headers.Add("Authorization", $"Bearer {token}");
+                var token = _iAuthService.Authenticate(loginUser);
                 var userFromData = _repository.GetUserByUserName(loginUser.UserName);
 
                 if (userFromData != null)
@@ -56,27 +44,40 @@ namespace Chat_App.Controllers
                     });
                 }
             }
-            return Unauthorized();
-
+            catch (Exception e)
+            {
+                return BadRequest(new { error = e.Message });
+            }
+            return BadRequest(new { error = "Something gone wrong , try again later." });
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserCreateDto userCreateDto)
         {
-            var userModel = _mapper.Map<User>(userCreateDto);
-            var user = _iAuthService.RegisterUser(userCreateDto);
+            if (this.TryValidateModel(userCreateDto))
+            {
+                try
+                {
+                    var userModel = _mapper.Map<User>(userCreateDto);
+                    var user = _iAuthService.RegisterUser(userCreateDto);
 
-            var userReadDto = _mapper.Map<UserReadDto>(userModel);
+                    var userReadDto = _mapper.Map<UserReadDto>(userModel);
 
-            return Created("Success", user);
-        }
-
-        [Authorize]
-        [HttpGet("user")]
-        public IActionResult User()
-        {
-            return Ok(new { authorized = "Successs" });
+                    return Created("Success", user);
+                }
+                catch (EmailAlreadyExistExeption emailE)
+                {
+                    ModelState.AddModelError("emailError", emailE.Message);
+                    return BadRequest(ModelState);
+                }
+                catch (UserNameAlreadyExistExeption usernameE)
+                {
+                    ModelState.AddModelError("userNameError", usernameE.Message);
+                    return BadRequest(ModelState);
+                } 
+            }
+            return BadRequest();
         }
     }
 
