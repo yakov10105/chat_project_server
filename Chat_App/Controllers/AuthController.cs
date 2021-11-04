@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using Chat_App.Services.Auth.Exeptions;
 using System;
+using System.Linq;
 
 namespace Chat_App.Controllers
 {
@@ -37,6 +38,8 @@ namespace Chat_App.Controllers
 
                 if (userFromData != null)
                 {
+                    //Add IsOnline = true
+                    _repository.UpdateIsOnline(userFromData.Id, true);
                     return Ok(new
                     {
                         key = $"Bearer {token}",

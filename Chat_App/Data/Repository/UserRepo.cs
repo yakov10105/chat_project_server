@@ -32,6 +32,12 @@ namespace Chat_App.Data
             _context.SaveChanges();
         }
 
+        public void UpdateIsOnline(int id, bool online)
+        {
+            _context.Users.FirstOrDefault(u => u.Id == id).IsOnline = online;
+            _context.SaveChanges();
+        }
+
         public IEnumerable<User> GetAllUsers() => _context.Users.ToList();
 
         public User GetUserById(int id) => _context.Users.FirstOrDefault(u => u.Id == id);

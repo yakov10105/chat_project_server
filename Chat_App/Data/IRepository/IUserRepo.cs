@@ -13,6 +13,7 @@ namespace Chat_App.Data
 		void CreateUser(User user);
 		void UpdateUser(User user);
 		void DeleteUser(User user);
+		void UpdateIsOnline(int id, bool online);
 	}
 }
 

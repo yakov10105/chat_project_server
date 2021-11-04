@@ -34,6 +34,22 @@ namespace Chat_App.Controllers
 
             return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
         }
+        //[Authorize]
+        //[HttpGet("all-online")]
+        //public ActionResult<IEnumerable<UserReadDto>> GetAllOnlineUsers()
+        //{
+        //    var users = _repository.GetAllUsers();
+
+        //    return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
+        //}
+        //[Authorize]
+        //[HttpGet("all-offline")]
+        //public ActionResult<IEnumerable<UserReadDto>> GetAllOfflineUsers()
+        //{
+        //    var users = _repository.GetAllUsers();
+
+        //    return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
+        //}
 
         //GET api/Users/{id}
         //GET api/Users/5
