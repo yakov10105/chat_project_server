@@ -11,7 +11,7 @@ namespace Chat_App.Data
 
         Message GetMessageById(int id);
 
-        Message SaveNewMessage(string message, int reciverId, int senderId);
+        Message SaveNewMessage(string message, int reciverId, int senderId, int roomId);
 
         List<Message> GetMessagesForRoom(int reciverId, int senderId);
     }

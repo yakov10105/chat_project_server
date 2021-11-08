@@ -23,13 +23,16 @@ namespace Chat_App.Data
             throw new NotImplementedException();
         }
 
-        public Message SaveNewMessage(string message, int reciverId, int senderId)
+        public Message SaveNewMessage(string message, int reciverId, int senderId, int roomId)
         {
             Message newMessage = new Message {
-                                Text = message,
-                                Date = DateTime.Now,
-                                SenderId = senderId,
-                                RecieverId = reciverId};
+                Text = message,
+                Date = DateTime.Now,
+                SenderId = senderId,
+                RecieverId = reciverId,
+                RoomId = roomId
+            };
+            _context.Messages.Add(newMessage);
 
             _context.SaveChanges();
 
@@ -38,5 +41,6 @@ namespace Chat_App.Data
         }
 
         public List<Message> GetMessagesForRoom(int reciverId, int senderId) => _context.Messages.Where(rk => rk.SenderId == senderId && rk.RecieverId == reciverId).ToList();
+
     }
 }

@@ -44,6 +44,7 @@ namespace Chat_App
             //repositories :
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IMessageRepo, MessageRepo>();
+            services.AddScoped<IRoomRepo, RoomRepo>();
 
             services.AddScoped<Services.Auth.IAuthenticationService, Services.Auth.AuthenticationService>();
 
