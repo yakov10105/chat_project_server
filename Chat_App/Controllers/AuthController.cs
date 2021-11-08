@@ -39,7 +39,7 @@ namespace Chat_App.Controllers
                 if (userFromData != null)
                 {
                     //Add IsOnline = true
-                    _repository.UpdateIsOnline(userFromData.Id, true);
+                    _repository.UpdateIsOnline(userFromData.Id, online:true);
                     return Ok(new
                     {
                         key = $"Bearer {token}",
