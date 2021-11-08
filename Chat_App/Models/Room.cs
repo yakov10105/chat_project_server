@@ -13,11 +13,9 @@ namespace Chat_App.Models
         [Display(Name = "Room Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "The room name cannot be empty.")]
         [StringLength(20, ErrorMessage = "Max length of name : 20 chars.")]
-        public string RoomName { get; set; }
+        public string RoomKey { get; set; }
 
         public bool IsGameOn { get; set; } = false;
-
-        public virtual ICollection<User> Members { get; set; }
 
         public virtual ICollection<Message> Messages { get; set; }
     }

@@ -60,7 +60,7 @@ namespace Chat_App.Services.Auth
                 UserAge = regUser.UserAge,
                 WinCoins = 200,
                 Password = BCrypt.Net.BCrypt.HashPassword(regUser.Password),
-                RoomId = 1
+                //RoomId = 1
 
             };
             _iUserRepo.CreateUser(user);

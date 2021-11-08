@@ -1,4 +1,5 @@
 ﻿using Chat_App.Data;
+using Chat_App.Models;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -12,26 +13,33 @@ namespace Chat_App.Services.ChatService.Hubs
     {
         private readonly string botUser;
         private readonly IDictionary<string, UserConnection> _connections;
-        private readonly IUserRepo _repository;
+        private readonly IUserRepo _userRepository;
+        private readonly IMessageRepo _messageRepository;
 
-        public ChatHub(IDictionary<string, UserConnection> connections,IUserRepo repo)
+        public ChatHub(IDictionary<string, UserConnection> connections,IUserRepo userRepository, IMessageRepo messageRepository)
         {
             botUser = "MyChat Bot";
             _connections = connections;
-            _repository = repo;
+            _userRepository = userRepository;
+            _messageRepository = messageRepository;
         }
 
         public async Task JoinRoomAsync(UserConnection userConnection)
         {
-            string roomId = GetRoomId(userConnection);
+            string roomKey = GetRoomId(userConnection);
+            int reciverId = _userRepository.GetUserByUserName(userConnection.ReciverUserName).Id;
+            int senderId = _userRepository.GetUserByUserName(userConnection.SenderUserName).Id;
 
-            await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
+
+            await Groups.AddToGroupAsync(Context.ConnectionId, roomKey);
 
             _connections[Context.ConnectionId] = userConnection;
 
-            await Clients.Group(roomId).SendAsync("ReceiveMessage", botUser,
-                $"{userConnection.SenderUserName} has joind {roomId}");
-
+            var messages = await GetMessages(userConnection);
+            foreach (var message in messages)
+            {
+                await Clients.Group(roomKey).SendAsync("ReceiveMessage", message.Sender.UserName,message);
+            }
             //await SendUsersConnected(roomId);
         }
 
@@ -39,10 +47,23 @@ namespace Chat_App.Services.ChatService.Hubs
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
-                string roomId = GetRoomId(userConnection);
-                await Clients.Group(roomId)
+                string roomKey = GetRoomId(userConnection);
+                int reciverId = _userRepository.GetUserByUserName(userConnection.ReciverUserName).Id;
+                int senderId = _userRepository.GetUserByUserName(userConnection.SenderUserName).Id;
+                _messageRepository.SaveNewMessage(message, reciverId, senderId);
+                await Clients.Group(roomKey)
                              .SendAsync("ReceiveMessage", userConnection.SenderUserName, message);
             }
+            
+        }
+
+        private async Task<List<Message>> GetMessages(UserConnection userConnection)
+        {
+            int reciverId = _userRepository.GetUserByUserName(userConnection.ReciverUserName).Id;
+            int senderId = _userRepository.GetUserByUserName(userConnection.SenderUserName).Id;
+            var messages = _messageRepository.GetMessagesForRoom(reciverId, senderId);
+            return messages;
+
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
@@ -71,11 +92,11 @@ namespace Chat_App.Services.ChatService.Hubs
 
   
 
-        private string GetRoomId(UserConnection userConnection)
+        public string GetRoomId(UserConnection userConnection)
         {
             var sb = new StringBuilder();
-            var senderId = _repository.GetUserIdByUserName(userConnection.SenderUserName);
-            var reciverId = _repository.GetUserIdByUserName(userConnection.ReciverUserName);
+            var senderId = _userRepository.GetUserIdByUserName(userConnection.SenderUserName);
+            var reciverId = _userRepository.GetUserIdByUserName(userConnection.ReciverUserName);
             if (senderId < reciverId)
                 sb.Append($"{senderId}-{reciverId}");
             else

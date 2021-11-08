@@ -27,9 +27,9 @@ namespace Chat_App.Data.DbConfig
                 .HasForeignKey(u => u.SenderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Room>()
-                .HasMany(r => r.Members)
-                .WithOne(m => m.Room);
+            //modelBuilder.Entity<Room>()
+            //    .HasMany(r => r.Members)
+            //    .WithOne(m => m.Room);
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.Sender)

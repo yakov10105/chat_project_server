@@ -25,7 +25,9 @@ namespace Chat_App.Models
 
         public virtual User Sender { get; set; }
         public virtual User Reciever { get; set; }
+        public virtual Room room { get; set; }
 
+        public int RoomId { get; set; }
         public int SenderId { get; set; }
         public int RecieverId { get; set; }
 

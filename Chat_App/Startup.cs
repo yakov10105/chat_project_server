@@ -41,8 +41,9 @@ namespace Chat_App
                     .AddNewtonsoftJson(s => s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+            //repositories :
             services.AddScoped<IUserRepo, UserRepo>();
+            services.AddScoped<IMessageRepo, MessageRepo>();
 
             services.AddScoped<Services.Auth.IAuthenticationService, Services.Auth.AuthenticationService>();
 
