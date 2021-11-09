@@ -40,7 +40,7 @@ namespace Chat_App.Data
 
         }
 
-        public List<Message> GetMessagesForRoom(int reciverId, int senderId) => _context.Messages.Where(rk => rk.SenderId == senderId && rk.RecieverId == reciverId).ToList();
+        public List<Message> GetMessagesForRoom(int reciverId, int senderId) => _context.Messages.Where(rk => (rk.SenderId == senderId && rk.RecieverId == reciverId)|| (rk.SenderId == reciverId && rk.RecieverId == senderId)).ToList();
 
     }
 }

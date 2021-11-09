@@ -40,11 +40,11 @@ namespace Chat_App.Services.ChatService.Hubs
 
                 _connections[Context.ConnectionId] = userConnection;
 
-                var messages = await GetMessagesAsync(reciverId,senderId);
-                foreach (var message in messages)
-                {
-                    await Clients.Group(roomKey).SendAsync("ReceiveMessage", message.Sender.UserName, message.Text);
-                }
+                //var messages = await GetMessagesAsync(reciverId,senderId);
+                //foreach (var message in messages)
+                //{
+                //    await Clients.Group(roomKey).SendAsync("ReceiveMessage", message.Sender.UserName, message.Text);
+                //}
             }
         }
 
