@@ -42,23 +42,12 @@ namespace Chat_App.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        //[Required(ErrorMessage = "Confirm Password field is required.")]
-        //[Display(Name = "Confirm Password")]
-        //[StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
-        //[DataType(DataType.Password)]
-        //[Compare("Password", ErrorMessage = "Incompatible passwords.")]
-        //public string ConfirmPassword { get; set; }//why we need the password twice
-
         public bool IsOnline { get; set; }
 
-        public int WinCoins { get; set; } = 0; // why to make it 0?
+        public int WinCoins { get; set; }
 
         public virtual ICollection<Message> SendedMessages { get; set; }
 
         public virtual ICollection<Message> RecievedMessages { get; set; }
-
-        public int RoomId { get; set; }
-
-        public virtual Room Room { get; set; }
     }
 }

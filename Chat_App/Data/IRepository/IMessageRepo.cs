@@ -10,6 +10,10 @@ namespace Chat_App.Data
         IEnumerable<Message> GetAllMessages();
 
         Message GetMessageById(int id);
+
+        Message SaveNewMessage(string message, int reciverId, int senderId, int roomId);
+
+        List<Message> GetMessagesForRoom(int reciverId, int senderId);
     }
 }
 

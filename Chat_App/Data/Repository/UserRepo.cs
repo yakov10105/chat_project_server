@@ -48,5 +48,14 @@ namespace Chat_App.Data
         {
             //Nothing the Database will take care of that
         }
+
+        public int GetUserIdByUserName(string userName)
+        {
+           var user =  _context.Users.FirstOrDefault(u => u.UserName == userName);
+            if (user != null)
+                return user.Id;
+
+            return 0;
+        }
     }
 }

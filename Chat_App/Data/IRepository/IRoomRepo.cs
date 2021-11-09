@@ -10,6 +10,10 @@ namespace Chat_App.Data
         IEnumerable<Room> GetAllRooms();
 
         Room GetRoomById(int id);
+
+        void CreateRoom(string roomKey);
+
+        Room GetRoomByKey(string roomKey);
     }
 }
 
