@@ -153,7 +153,6 @@ C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\obj\Debug\net5.0\Ch
 C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\obj\Debug\net5.0\Chat_App.RazorAssemblyInfo.cache
 C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\obj\Debug\net5.0\Chat_App.RazorAssemblyInfo.cs
 C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\obj\Debug\net5.0\staticwebassets\Chat_App.StaticWebAssets.Manifest.cache
-C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\obj\Debug\net5.0\staticwebassets\Chat_App.StaticWebAssets.xml
 C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\obj\Debug\net5.0\scopedcss\bundle\Chat_App.styles.css
 C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\obj\Debug\net5.0\Chat_App.TagHelpers.input.cache
 C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\obj\Debug\net5.0\Chat_App.TagHelpers.output.cache

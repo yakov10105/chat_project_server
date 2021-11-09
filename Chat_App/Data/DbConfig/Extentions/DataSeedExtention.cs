@@ -11,13 +11,6 @@ namespace Chat_App.Data.DbConfig.Extentions
     {
         public static void SeedData(this ModelBuilder builder)
         {
-
-            Room room = new Room
-            {
-                Id = 1,
-                RoomKey = "חרא על מכללת סלע",
-                //Members= new List<User>()
-            };
             User yakov = new User
             {
                 Id = 1,
@@ -27,10 +20,6 @@ namespace Chat_App.Data.DbConfig.Extentions
                 UserEmail = "Yakov@gmail.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("123456"),
                 UserAge = 22
-                //RecievedMessages = new List<Message>(),
-                //SendedMessages=new List<Message>(),
-                //RoomId=1
-
             };
             User idan = new User
             {
@@ -41,12 +30,65 @@ namespace Chat_App.Data.DbConfig.Extentions
                 UserEmail = "Idan@gmail.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("123456"),
                 UserAge = 22
-                //RecievedMessages = new List<Message>(),
-                //SendedMessages = new List<Message>(),
-                //RoomId=1
             };
-            builder.Entity<User>().HasData(idan,yakov);
-            builder.Entity<Room>().HasData(room);
+            User yosi = new User
+            {
+                Id = 3,
+                FirstName = "Yosi",
+                LastName = "Cohen",
+                UserName = "Yosi111",
+                UserEmail = "Yosi@gmail.com",
+                Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                UserAge = 22
+            };
+            User elon = new User
+            {
+                Id = 4,
+                FirstName = "Elon",
+                LastName = "Mask",
+                UserName = "Elon111",
+                UserEmail = "Elon@gmail.com",
+                Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                UserAge = 22
+            };
+            User jeff = new User
+            {
+                Id = 5,
+                FirstName = "Jeff",
+                LastName = "Bezos",
+                UserName = "Jeff122",
+                UserEmail = "Jeff@gmail.com",
+                Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                UserAge = 22
+            };
+            User bil = new User
+            {
+                Id = 6,
+                FirstName = "Bill",
+                LastName = "Gates",
+                UserName = "Bill8787",
+                UserEmail = "Bill@gmail.com",
+                Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                UserAge = 22
+            };
+            var room12 = new Room
+            {
+                Id = 1,
+                RoomKey = "1-2",
+                Messages = new List<Message>()
+            };
+            var message = new Message
+            {
+                Id = 1,
+                Text = "Hello , How are you ???",
+                Date = DateTime.Now.AddDays(-84).AddHours(52),
+                RoomId = 1,
+                RecieverId = 2,
+                SenderId = 1
+            };
+            builder.Entity<User>().HasData(idan,yakov,yosi,elon,jeff,bil);
+            builder.Entity<Message>().HasData(message);
+            builder.Entity<Room>().HasData(room12);
         }
     }
 }
