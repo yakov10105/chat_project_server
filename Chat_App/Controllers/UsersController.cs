@@ -63,6 +63,29 @@ namespace Chat_App.Controllers
             }
             return NotFound();
         }
+        [HttpGet("{username}", Name = "GetUserByUserName")]
+        public ActionResult<UserReadDto> GetUserByUserName(string username)
+        {
+            var user = _repository.GetUserByUserName(username);
+            if (user != null)
+            {
+                return Ok(_mapper.Map<UserReadDto>(user));
+            }
+            return NotFound();
+        }
+
+        [Authorize]
+        [HttpGet("offline")]
+        public IActionResult SetUserOffline(string userName)
+        {
+            var user = _repository.GetUserByUserName(userName);
+            if(user!= null)
+            {
+                _repository.UpdateIsOnline(user.Id, false);
+                return Ok();
+            }
+            return BadRequest();
+        }
 
         [HttpPost]
         public ActionResult<UserCreateDto> CreateUser(UserCreateDto userCreateDto)// we get the user back in the client side
