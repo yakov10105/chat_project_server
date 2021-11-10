@@ -42,7 +42,7 @@ namespace Chat_App.Controllers
                     var list = new List<MessageReadDto>();
                     foreach (var item in messages)
                     {
-                        list.Add(new MessageReadDto { Text = item.Text, Date = item.Date, SenderUserName = (_userRepository.GetUserById(item.SenderId).UserName) });
+                        list.Add(new MessageReadDto { Text = item.Text, Date = item.Date.ToString("HH:mm (dd/MM/yyyy)"), SenderUserName = (_userRepository.GetUserById(item.SenderId).UserName) });
                     }
                     return Ok(list);
                 }
