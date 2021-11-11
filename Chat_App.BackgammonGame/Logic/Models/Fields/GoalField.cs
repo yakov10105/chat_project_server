@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chat_App.BackgammonGame.Logic.Models.Fields
 {
-    internal class GoalField:BasicField
+    public class GoalField:BasicField
     {
         private Player player;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chat_App.BackgammonGame.Logic.Models.Fields
 {
-    internal class BoardField:BasicField
+    public class BoardField:BasicField
     {
         private int position;
         public BoardField(LinkedList<Checker> checkers , int position)

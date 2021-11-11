@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chat_App.BackgammonGame.Logic.Models
 {
-    internal class Dice
+    public class Dice
     {
         public int value { get; set; }
     }

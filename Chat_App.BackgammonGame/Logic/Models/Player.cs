@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Chat_App.BackgammonGame.Logic.Models
 {
-    internal class Player
+    public class Player
     {
         public int id { get; }
         public String name { get; set; }

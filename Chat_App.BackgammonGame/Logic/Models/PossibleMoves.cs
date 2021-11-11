@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Chat_App.BackgammonGame.Logic.Models
 {
-    internal class PossibleMoves
+    public class PossibleMoves
     {
         public BasicField From { get; }
         public BasicField To { get; }
