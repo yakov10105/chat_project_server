@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Yakov\\Documents\\GitHub\\chat_project_server\\Chat_App\\Chat_App.csproj": {}
+    "E:\\VS\\Projects\\SelaSOA\\New folder (6)NewServer\\Chat_App\\Chat_App.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Yakov\\Documents\\GitHub\\chat_project_server\\Chat_App\\Chat_App.csproj": {
+    "E:\\VS\\Projects\\SelaSOA\\New folder (6)NewServer\\Chat_App\\Chat_App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Yakov\\Documents\\GitHub\\chat_project_server\\Chat_App\\Chat_App.csproj",
+        "projectUniqueName": "E:\\VS\\Projects\\SelaSOA\\New folder (6)NewServer\\Chat_App\\Chat_App.csproj",
         "projectName": "Chat_App",
-        "projectPath": "C:\\Users\\Yakov\\Documents\\GitHub\\chat_project_server\\Chat_App\\Chat_App.csproj",
-        "packagesPath": "C:\\Users\\Yakov\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Yakov\\Documents\\GitHub\\chat_project_server\\Chat_App\\obj\\",
+        "projectPath": "E:\\VS\\Projects\\SelaSOA\\New folder (6)NewServer\\Chat_App\\Chat_App.csproj",
+        "packagesPath": "C:\\Users\\idan\\.nuget\\packages\\",
+        "outputPath": "E:\\VS\\Projects\\SelaSOA\\New folder (6)NewServer\\Chat_App\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Yakov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\idan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -123,7 +123,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

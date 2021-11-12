@@ -38,8 +38,7 @@ namespace Chat_App.Controllers
 
                 if (userFromData != null)
                 {
-                    //Add IsOnline = true
-                    _repository.UpdateIsOnline(userFromData.Id, online:true);
+                    //IsOnline = true In WebSocket
                     return Ok(new
                     {
                         key = $"Bearer {token}",
@@ -81,6 +80,14 @@ namespace Chat_App.Controllers
                 } 
             }
             return BadRequest();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("logout")]
+        public IActionResult Logout(string userName)
+        {
+
+            return BadRequest(new { error = "Something gone wrong , try again later." });
         }
     }
 

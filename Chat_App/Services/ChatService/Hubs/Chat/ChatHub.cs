@@ -11,7 +11,6 @@ namespace Chat_App.Services.ChatService.Hubs
 {
     public class ChatHub : Hub, IChatHub
     {
-        private readonly string botUser;
         private readonly IDictionary<string, UserConnection> _connections;
         private readonly IUserRepo _userRepository;
         private readonly IMessageRepo _messageRepository;
@@ -19,7 +18,6 @@ namespace Chat_App.Services.ChatService.Hubs
 
         public ChatHub(IDictionary<string, UserConnection> connections,IUserRepo userRepository, IMessageRepo messageRepository, IRoomRepo roomRepo)
         {
-            botUser = "MyChat Bot";
             _connections = connections;
             _userRepository = userRepository;
             _messageRepository = messageRepository;
@@ -39,12 +37,6 @@ namespace Chat_App.Services.ChatService.Hubs
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomKey);
 
                 _connections[Context.ConnectionId] = userConnection;
-
-                //var messages = await GetMessagesAsync(reciverId,senderId);
-                //foreach (var message in messages)
-                //{
-                //    await Clients.Group(roomKey).SendAsync("ReceiveMessage", message.Sender.UserName, message.Text);
-                //}
             }
         }
 
@@ -57,24 +49,19 @@ namespace Chat_App.Services.ChatService.Hubs
                 int reciverId = _userRepository.GetUserByUserName(userConnection.ReciverUserName).Id;
                 int senderId = _userRepository.GetUserByUserName(userConnection.SenderUserName).Id;
 
-                await SaveNewMessageAsync(message, reciverId, senderId, room.Id);
-
                 await Clients.Group(roomKey)
                              .SendAsync("ReceiveMessage", userConnection.SenderUserName, message);
+
+                await SaveNewMessageAsync(message, reciverId, senderId, room.Id);
             }
             
         }
-
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
-                string roomId = GetRoomId(userConnection);
                 _connections.Remove(Context.ConnectionId);
-                Clients.Group(roomId)
-                       .SendAsync("ReceiveMessage", botUser, $"{userConnection.SenderUserName} has left");
-
             }
 
             return base.OnDisconnectedAsync(exception);

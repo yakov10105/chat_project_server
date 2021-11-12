@@ -22,4 +22,8 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.13.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\ChatService\Hubs\Account\Models\" />
+  </ItemGroup>
+
 </Project>
