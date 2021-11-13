@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Chat_App.Services.ChatService.Hubs
 {
-    public class ChatHub : Hub, IChatHub
+    public class ChatHub : Hub
     {
         private readonly IDictionary<string, UserConnection> _connections;
         private readonly IUserRepo _userRepository;

@@ -15,6 +15,7 @@ namespace Chat_App.Data
 		void UpdateUser(User user);
 		void DeleteUser(User user);
 		void UpdateIsOnline(int id, bool online);
+		IEnumerable<User> GetOnlineUsers();
 	}
 }
 

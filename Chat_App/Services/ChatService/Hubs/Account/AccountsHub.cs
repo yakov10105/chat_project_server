@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Chat_App.Data;
 using Chat_App.Dtos;
+using Chat_App.Models;
 using Chat_App.Services.Auth;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -25,26 +26,12 @@ namespace Chat_App.Services.ChatService.Hubs.Acount
             _mapper = mapper;
         }
 
-        public IEnumerable<string> GetConnectedUsersAsync() => _connections.Values.ToList();
-
-        public IEnumerable<string> GetAllUsersAsync()
-        {
-            var usersNames = new List<string>();
-            _repository.GetAllUsers().ToList().ForEach(u => usersNames.Add(u.UserName));
-            return usersNames;
-        }
-
-
-        public async Task UpdateUsersAsync()
-        {
-            await Clients.All.SendAsync("UpdateUsers");
-        }
-
         public async Task ConnectAsync(string userName)
         {
             _connections[Context.ConnectionId] = userName;
+            await Groups.AddToGroupAsync(Context.ConnectionId, userName);
             await (Task.Run(() => _repository.UpdateIsOnline(_repository.GetUserByUserName(userName).Id, online: true)));
-            await Clients.All.SendAsync("UpdateUsers");
+            await SendUsersConnected();
         }
 
 
@@ -52,12 +39,42 @@ namespace Chat_App.Services.ChatService.Hubs.Acount
         {
             if (_connections.TryGetValue(Context.ConnectionId, out string userName))
             {
-                Task.Run(()=> Clients.All.SendAsync("UpdateUsers"));
                 _connections.Remove(Context.ConnectionId);
                 _repository.UpdateIsOnline(_repository.GetUserByUserName(userName).Id, online: false);
+
+                SendUsersConnected();
             }
 
             return base.OnDisconnectedAsync(exception);
         }
+
+        public Task SendUsersConnected()
+        {
+            var users = _repository.GetOnlineUsers();
+
+            return Clients.All.SendAsync("ConnectedUsers", _mapper.Map<IEnumerable<UserReadDto>>(users));
+        }
+
+        public Task SendTyping(string userName)
+        {
+            if (userName != null)
+            {
+                return Clients.Group(userName).SendAsync("ReceiveTyping", userName);
+            }
+            return Task.Run(() => "");
+        }
+
+
+
+
+
+        //public IEnumerable<string> GetConnectedUsersAsync() => _connections.Values;
+
+        //public IEnumerable<string> GetAllUsersAsync()
+        //{
+        //    var usersNames = new List<string>();
+        //    _repository.GetAllUsers().ToList().ForEach(u => usersNames.Add(u.UserName));
+        //    return usersNames;
+        //}
     }
 }

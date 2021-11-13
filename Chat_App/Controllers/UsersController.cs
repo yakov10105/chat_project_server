@@ -34,6 +34,19 @@ namespace Chat_App.Controllers
 
             return Ok(_mapper.Map<IEnumerable<UserReadDto>>(users));
         }
+
+        [Authorize]
+        [HttpGet("all-usernames")]
+        public ActionResult<IEnumerable<string>> GetAllUserNames()
+        {
+            var users = _repository.GetAllUsers();
+            var userNames = new List<string>();
+            foreach (var user in users)
+            {
+                userNames.Add(user.UserName);
+            }
+            return Ok(_mapper.Map<IEnumerable<string>>(userNames));
+        }
         //[Authorize]
         //[HttpGet("all-online")]
         //public ActionResult<IEnumerable<UserReadDto>> GetAllOnlineUsers()
