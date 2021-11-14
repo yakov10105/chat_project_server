@@ -7,6 +7,7 @@ using Chat_App.Data.DbConfig;
 using Chat_App.Services.ChatService;
 using Chat_App.Services.ChatService.Hubs;
 using Chat_App.Services.ChatService.Hubs.Acount;
+using Chat_App.Services.GameService;
 using Chat_App.Services.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -46,6 +47,7 @@ namespace Chat_App
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IMessageRepo, MessageRepo>();
             services.AddScoped<IRoomRepo, RoomRepo>();
+            
 
             services.AddScoped<Services.Auth.IAuthenticationService, Services.Auth.AuthenticationService>();
 
@@ -82,6 +84,7 @@ namespace Chat_App
             });
 
             services.AddSingleton<IJwtService>(new JwtService(key));
+
 
             services.AddMvc();
 

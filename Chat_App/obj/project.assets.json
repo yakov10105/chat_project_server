@@ -2619,6 +2619,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Chat_App.BackgammonGame/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/Chat_App.BackgammonGame.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Chat_App.BackgammonGame.dll": {}
+        }
       }
     }
   },
@@ -8493,12 +8503,18 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Chat_App.BackgammonGame/1.0.0": {
+      "type": "project",
+      "path": "../Chat_App.BackgammonGame/Chat_App.BackgammonGame.csproj",
+      "msbuildProject": "../Chat_App.BackgammonGame/Chat_App.BackgammonGame.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 8.1.1",
       "BCrypt.Net-Next >= 4.0.2",
+      "Chat_App.BackgammonGame >= 1.0.0",
       "Microsoft.AspNetCore.Authentication >= 2.2.0",
       "Microsoft.AspNetCore.Authentication.Google >= 5.0.11",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.11",
@@ -8515,23 +8531,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\idan\\.nuget\\packages\\": {},
+    "C:\\Users\\Yakov\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\VS\\Projects\\SelaSOA\\New folder (6)NewServer\\Chat_App\\Chat_App.csproj",
+      "projectUniqueName": "C:\\Users\\Yakov\\Documents\\GitHub\\server\\Chat_App\\Chat_App.csproj",
       "projectName": "Chat_App",
-      "projectPath": "E:\\VS\\Projects\\SelaSOA\\New folder (6)NewServer\\Chat_App\\Chat_App.csproj",
-      "packagesPath": "C:\\Users\\idan\\.nuget\\packages\\",
-      "outputPath": "E:\\VS\\Projects\\SelaSOA\\New folder (6)NewServer\\Chat_App\\obj\\",
+      "projectPath": "C:\\Users\\Yakov\\Documents\\GitHub\\server\\Chat_App\\Chat_App.csproj",
+      "packagesPath": "C:\\Users\\Yakov\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Yakov\\Documents\\GitHub\\server\\Chat_App\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\idan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Yakov\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8545,7 +8561,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Yakov\\Documents\\GitHub\\server\\Chat_App.BackgammonGame\\Chat_App.BackgammonGame.csproj": {
+              "projectPath": "C:\\Users\\Yakov\\Documents\\GitHub\\server\\Chat_App.BackgammonGame\\Chat_App.BackgammonGame.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -8637,7 +8657,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
