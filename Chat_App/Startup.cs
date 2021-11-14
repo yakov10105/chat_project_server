@@ -6,6 +6,7 @@ using Chat_App.Data;
 using Chat_App.Data.DbConfig;
 using Chat_App.Services.ChatService;
 using Chat_App.Services.ChatService.Hubs;
+using Chat_App.Services.ChatService.Hubs.Acount;
 using Chat_App.Services.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -84,7 +85,8 @@ namespace Chat_App
 
             services.AddMvc();
 
-            services.AddSingleton<IDictionary<string, UserConnection>>(options => new Dictionary<string, UserConnection>());
+            services.AddSingleton<IDictionary<string, UserConnection>>(options => new Dictionary<string, UserConnection>());//Chat
+            services.AddSingleton<IDictionary<string, string>>(options => new Dictionary<string, string>());//Server
 
             services.AddSignalR();
 
@@ -116,6 +118,7 @@ namespace Chat_App
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<AccountsHub>("/login");
             });
         }
     }

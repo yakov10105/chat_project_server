@@ -57,5 +57,7 @@ namespace Chat_App.Data
 
             return 0;
         }
+
+        public IEnumerable<User> GetOnlineUsers() => _context.Users.Where(u => u.IsOnline == true);
     }
 }
