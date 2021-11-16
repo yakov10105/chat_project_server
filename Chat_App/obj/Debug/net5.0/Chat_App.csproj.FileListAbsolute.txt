@@ -509,3 +509,6 @@ C:\Users\Yakov\Documents\GitHub\server\Chat_App\obj\Debug\net5.0\Chat_App.dll
 C:\Users\Yakov\Documents\GitHub\server\Chat_App\obj\Debug\net5.0\ref\Chat_App.dll
 C:\Users\Yakov\Documents\GitHub\server\Chat_App\obj\Debug\net5.0\Chat_App.pdb
 C:\Users\Yakov\Documents\GitHub\server\Chat_App\obj\Debug\net5.0\Chat_App.genruntimeconfig.cache
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\bin\Debug\net5.0\Chat_App.StaticWebAssets.xml
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\bin\Debug\net5.0\Chat_App.BackgammonGame.dll
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App\bin\Debug\net5.0\Chat_App.BackgammonGame.pdb

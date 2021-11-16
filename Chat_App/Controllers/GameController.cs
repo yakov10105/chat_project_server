@@ -30,15 +30,14 @@ namespace Chat_App.Controllers
             gameService.StartGame();
             gameService.RollDices();
 
-            var a = gameService.GameBoard.PossibleMoves[0];
-            var move = new Move() { from = a.From.GetPosition(), to = a.To.GetPosition() };
-            gameService.MakeMove(move);
+            //var a = gameService.GameBoard.PossibleMoves[0];
+            //var move = new Move() { from = a.From.GetPosition(), to = a.To.GetPosition() };
+            //gameService.MakeMove(move);
 
-            return Ok(gameService);
             //return Ok(gameService.GameBoard);
             //return Ok(gameService.GameBoard.BoardFields[0]);
             //return Ok(gameService.GameBoard.BoardFields[0].GetCheckers());
-            //return Ok(gameService.GameBoard.PossibleMoves.First().From);
+            return Ok(gameService.GetGameBoard());
         }
     }
 }
