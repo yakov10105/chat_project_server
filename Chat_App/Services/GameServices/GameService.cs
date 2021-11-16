@@ -1,17 +1,74 @@
 ﻿using Chat_App.BackgammonGame.Logic.Exeptions;
 using Chat_App.BackgammonGame.Logic.Models;
 using Chat_App.BackgammonGame.Logic.Models.Fields;
+using Chat_App.Models;
 using System;
 using System.Collections.Generic;
 
-namespace Chat_App.Services.GameService
+namespace Chat_App.Services.GameServices
 {
-    public class GameService:IGameService
+    public class GameService
     {
         public GameBoard GameBoard { get; set; }
-        public GameService(GameBoard gameBoard)
+        public Move Move { get; set; } = new Move();
+        public GameService(User sender , User receiver)
         {
-            GameBoard = gameBoard;
+            InitAllGamePieces(sender,receiver);
+        }
+
+        public void InitAllGamePieces(User sender,User receiver)
+        {
+            // Set player colors
+            String p1Color = "White";
+            String p2Color = "Black";
+
+            // Create Players
+            Player player1 = new Player(sender.Id, sender.UserName, p1Color);
+            Player player2 = new Player(receiver.Id,receiver.UserName, p2Color);
+
+            // Create checkers
+            Checker[] P1Checkers = new Checker[15];
+            for (int i = 0; i < 15; i++)
+            {
+                P1Checkers[i] = new Checker(i, player1);
+            }
+            Checker[] P2Checkers = new Checker[15];
+            for (int i = 0; i < 15; i++)
+            {
+                P2Checkers[i] = new Checker(i + 15, player2);
+            }
+
+            // Create dices
+            Dice D1 = new Dice();
+            Dice D2 = new Dice();
+
+            // Create diceCup
+            DiceCup diceCup = new DiceCup(D1, D2);
+
+            // Create board fields
+            BoardField[] boardFields = new BoardField[24];
+            for (int i = 0; i < 24; i++)
+            {
+                boardFields[i] = new BoardField(new LinkedList<Checker>(), i);
+
+            }
+
+            // Create elimination field
+            EliminatedField eliminatedField = new EliminatedField();
+
+            // Create goal fields
+            GoalField goalFieldP1 = new GoalField(player1, 27);
+            GoalField goalFieldP2 = new GoalField(player2, 26);
+
+            // Create rules
+            Rules rules = new Rules(boardFields, eliminatedField, goalFieldP1, goalFieldP2, diceCup, player1, player2);
+
+            // Create game board
+            GameBoard = new GameBoard(boardFields, eliminatedField, goalFieldP1, goalFieldP2, P1Checkers, P2Checkers, diceCup, rules, player1, player2);
+
+            // selection -1 = No selected field
+            Move.from = -1;
+            Move.to = -1;
         }
 
         public void StartGame()
@@ -43,7 +100,7 @@ namespace Chat_App.Services.GameService
             GameBoard.PossibleMoves = GameBoard.Rules.CheckPossibleMoves(GameBoard.ActivePlayer);
             CheckPlayerTurn();
         }
-        public List<int> GetDices()=>GameBoard.DiceCup.GetMoves();    
+        public IEnumerable<int> GetDices()=>GameBoard.DiceCup.GetMoves();    
 
         public string GetActivePlayerName()=> GameBoard.ActivePlayer.name;
         

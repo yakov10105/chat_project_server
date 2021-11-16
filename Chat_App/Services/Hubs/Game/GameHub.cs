@@ -1,5 +1,8 @@
-﻿using Chat_App.Data;
+﻿using Chat_App.BackgammonGame.Logic.Models;
+using Chat_App.Data;
+using Chat_App.Models;
 using Chat_App.Services.Hubs.Game.Models;
+using Chat_App.Services.GameServices;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -14,6 +17,7 @@ namespace Chat_App.Services.Hubs.Game
         private readonly IUserRepo _userRepository;
         private readonly IMessageRepo _messageRepository;
         private readonly IRoomRepo _roomRepository;
+        private  GameService _gameService;
 
         public GameHub(IDictionary<string, GameUserConnections> connections, IUserRepo userRepository, IMessageRepo messageRepository, IRoomRepo roomRepo)
         {
@@ -28,14 +32,31 @@ namespace Chat_App.Services.Hubs.Game
             string roomKey = GetRoomId(gameUserConnection);
             if (roomKey != "room")
             {
-                int reciverId = _userRepository.GetUserByUserName(gameUserConnection.RecieverUserName).Id;
-                int senderId = _userRepository.GetUserByUserName(gameUserConnection.SenderUserName).Id;
-
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomKey);
-
                 _connections[Context.ConnectionId] = gameUserConnection;
             }
         }
+        public void StartGame(GameUserConnections gameUserConnection)
+        {
+            // Checkers in start position
+            // Boardfield     0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 -  E  G2 G1
+            int[] p1Array = { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            int[] p2Array = { 0, 0, 0, 0, 0, 5, 0, 3, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0 };
+
+            var reciver = _userRepository.GetUserByUserName(gameUserConnection.RecieverUserName);
+            var sender = _userRepository.GetUserByUserName(gameUserConnection.SenderUserName);
+
+            _gameService = new GameService(sender, reciver);
+            _gameService.InitBoardState(p1Array, p2Array);
+            _gameService.StartGame();
+        }
+        
+        public void RollDices() => _gameService.RollDices();
+        public IEnumerable<int> GetDicesValue() => _gameService.GetDices();
+
+
+
+
 
         private string GetRoomId(GameUserConnections gameUserConnection)
         {

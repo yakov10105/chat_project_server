@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Chat_App.Services.GameService
+namespace Chat_App.Services.GameServices
 {
     public interface IGameService
     {

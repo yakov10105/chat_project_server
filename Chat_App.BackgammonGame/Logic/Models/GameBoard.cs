@@ -40,8 +40,8 @@ namespace Chat_App.BackgammonGame.Logic.Models
             this.Player2=player2;
             this.DiceCup=diceCup;
             this.Rules=rules;
-            this.Player1Checkers=Player1Checkers;
-            this.Player2Checkers=Player2Checkers;
+            this.Player1Checkers=P1Checkers;
+            this.Player2Checkers=P2Checkers;
         }
 
         public void MoveChecker(Player activePlayer,BasicField fromField,BasicField toField, List<PossibleMoves> possibleMoves)
@@ -108,7 +108,7 @@ namespace Chat_App.BackgammonGame.Logic.Models
                 {
                     BoardFields[i].AddChecker(Player1Checkers[p1Place]);
                     p1Place++;
-                }
+                } 
 
                 // Player 2
                 for (int j = 0; j < player2Positions[i]; j++)
