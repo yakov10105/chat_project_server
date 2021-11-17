@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Chat_App.Dtos;
 
 namespace Chat_App.Services.Hubs.Game
 {
@@ -29,7 +30,7 @@ namespace Chat_App.Services.Hubs.Game
             isGameOn = null;
         }
 
-        public async Task JoinGameAsync(string userName)
+        public async Task JoinGameAsync(JoinGameModel joinGameModel)
         {
             
         }

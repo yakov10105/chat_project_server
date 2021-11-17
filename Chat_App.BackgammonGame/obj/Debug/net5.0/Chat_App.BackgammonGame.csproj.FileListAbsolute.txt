@@ -22,3 +22,15 @@ E:\VS\Projects\SelaSOA\New folder (8)\Chat_App.BackgammonGame\obj\Debug\net5.0\C
 E:\VS\Projects\SelaSOA\New folder (8)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.dll
 E:\VS\Projects\SelaSOA\New folder (8)\Chat_App.BackgammonGame\obj\Debug\net5.0\ref\Chat_App.BackgammonGame.dll
 E:\VS\Projects\SelaSOA\New folder (8)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.pdb
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\bin\Debug\net5.0\Chat_App.BackgammonGame.deps.json
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\bin\Debug\net5.0\Chat_App.BackgammonGame.dll
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\bin\Debug\net5.0\ref\Chat_App.BackgammonGame.dll
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\bin\Debug\net5.0\Chat_App.BackgammonGame.pdb
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.csproj.AssemblyReference.cache
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.AssemblyInfoInputs.cache
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.AssemblyInfo.cs
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.csproj.CoreCompileInputs.cache
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.dll
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\obj\Debug\net5.0\ref\Chat_App.BackgammonGame.dll
+C:\Users\Yakov\Documents\GitHub\chat_project_server\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.pdb
