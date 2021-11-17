@@ -18,6 +18,7 @@ namespace Chat_App.Services.Hubs.Game
         private readonly IMessageRepo _messageRepository;
         private readonly IRoomRepo _roomRepository;
         private  GameService _gameService;
+        private bool? isGameOn;
 
         public GameHub(IDictionary<string, GameUserConnections> connections, IUserRepo userRepository, IMessageRepo messageRepository, IRoomRepo roomRepo)
         {
@@ -25,16 +26,12 @@ namespace Chat_App.Services.Hubs.Game
             _userRepository = userRepository;
             _messageRepository = messageRepository;
             _roomRepository = roomRepo;
+            isGameOn = null;
         }
 
-        public async Task JoinRoomAsync(GameUserConnections gameUserConnection)
+        public async Task JoinGameAsync(string userName)
         {
-            string roomKey = GetRoomId(gameUserConnection);
-            if (roomKey != "room")
-            {
-                await Groups.AddToGroupAsync(Context.ConnectionId, roomKey);
-                _connections[Context.ConnectionId] = gameUserConnection;
-            }
+            
         }
         public void StartGame(GameUserConnections gameUserConnection)
         {
@@ -43,7 +40,7 @@ namespace Chat_App.Services.Hubs.Game
             int[] p1Array = { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
             int[] p2Array = { 0, 0, 0, 0, 0, 5, 0, 3, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0 };
 
-            var reciver = _userRepository.GetUserByUserName(gameUserConnection.RecieverUserName);
+            var reciver = _userRepository.GetUserByUserName(gameUserConnection.ReciverUserName);
             var sender = _userRepository.GetUserByUserName(gameUserConnection.SenderUserName);
 
             _gameService = new GameService(sender, reciver);
@@ -61,10 +58,10 @@ namespace Chat_App.Services.Hubs.Game
         private string GetRoomId(GameUserConnections gameUserConnection)
         {
             var sb = new StringBuilder();
-            if (gameUserConnection.RecieverUserName != null && gameUserConnection.SenderUserName != null)
+            if (gameUserConnection.ReciverUserName != null && gameUserConnection.SenderUserName != null)
             {
                 var senderId = _userRepository.GetUserIdByUserName(gameUserConnection.SenderUserName);
-                var reciverId = _userRepository.GetUserIdByUserName(gameUserConnection.RecieverUserName);
+                var reciverId = _userRepository.GetUserIdByUserName(gameUserConnection.ReciverUserName);
                 if (senderId < reciverId)
                     sb.Append($"{senderId}-{reciverId}");
                 else

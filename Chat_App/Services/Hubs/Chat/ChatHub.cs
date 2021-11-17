@@ -57,14 +57,6 @@ namespace Chat_App.Services.ChatService.Hubs
             
         }
 
-        public async Task SendGameRequest(UserConnection userConnection)
-        {
-            var room = GetRoomId(userConnection);
-            await Clients.Group(room).SendAsync("GetGameInvitation", userConnection.SenderUserName);
-            //send only to the reciever , not both of them
-            //get invitation accepted/denied
-        }
-
         public override Task OnDisconnectedAsync(Exception exception)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))

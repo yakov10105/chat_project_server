@@ -8,6 +8,6 @@ namespace Chat_App.Services.Hubs.Game.Models
     public class GameUserConnections
     {
         public string SenderUserName { get; set; }
-        public string  RecieverUserName { get; set; }
+        public string ReciverUserName { get; set; }
     }
 }
