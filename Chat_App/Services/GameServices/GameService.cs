@@ -7,13 +7,13 @@ using System.Collections.Generic;
 
 namespace Chat_App.Services.GameServices
 {
-    public class GameService
+    public class GameService:IGameService
     {
         public GameBoard GameBoard { get; set; }
         public Move Move { get; set; } = new Move();
-        public GameService(User sender , User receiver)
+        public GameService()
         {
-            InitAllGamePieces(sender,receiver);
+            //InitAllGamePieces(sender,receiver);
         }
 
         public void InitAllGamePieces(User sender,User receiver)
@@ -100,7 +100,7 @@ namespace Chat_App.Services.GameServices
             GameBoard.PossibleMoves = GameBoard.Rules.CheckPossibleMoves(GameBoard.ActivePlayer);
             CheckPlayerTurn();
         }
-        public IEnumerable<int> GetDices()=>GameBoard.DiceCup.GetMoves();    
+        public List<int> GetDices()=>GameBoard.DiceCup.GetMoves();    
 
         public string GetActivePlayerName()=> GameBoard.ActivePlayer.name;
         

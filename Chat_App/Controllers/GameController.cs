@@ -25,7 +25,7 @@ namespace Chat_App.Controllers
             var reciver = new User() { Id = 222, UserName = "ggg333" };
             var sender = new User() { Id = 333, UserName = "mmm333" };
 
-            gameService = new GameService(sender, reciver);
+            gameService = new GameService();
             gameService.InitBoardState(p1Array, p2Array);
             gameService.StartGame();
             gameService.RollDices();

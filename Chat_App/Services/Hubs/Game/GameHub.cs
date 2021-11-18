@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Chat_App.Dtos;
+using System.Linq;
 
 namespace Chat_App.Services.Hubs.Game
 {
@@ -18,22 +19,35 @@ namespace Chat_App.Services.Hubs.Game
         private readonly IUserRepo _userRepository;
         private readonly IMessageRepo _messageRepository;
         private readonly IRoomRepo _roomRepository;
-        private  GameService _gameService;
+        private  IGameService _gameService;
         private bool? isGameOn;
 
-        public GameHub(IDictionary<string, GameUserConnections> connections, IUserRepo userRepository, IMessageRepo messageRepository, IRoomRepo roomRepo)
+        public GameHub(IDictionary<string, GameUserConnections> connections,IGameService gameService, IUserRepo userRepository, IMessageRepo messageRepository, IRoomRepo roomRepo)
         {
             _connections = connections;
             _userRepository = userRepository;
             _messageRepository = messageRepository;
             _roomRepository = roomRepo;
+            _gameService = gameService;
             isGameOn = null;
         }
 
         public async Task JoinGameAsync(JoinGameModel joinGameModel)
         {
+            var gameConnection = GetGameUserConnection(joinGameModel);
+            StartGame(gameConnection);
             
         }
+
+        private GameUserConnections GetGameUserConnection(JoinGameModel joinGameModel)
+        {
+            var user1 = _userRepository.GetUserByUserName(joinGameModel.UserName);
+            var user2Id = joinGameModel.RoomName.Split("-").First((u)=>int.Parse(u)!=user1.Id);
+            var user2 = _userRepository.GetUserById(int.Parse(user2Id));
+            var connection = new GameUserConnections() { SenderUserName = user1.UserName, ReciverUserName = user2.UserName };
+            return connection;
+        }
+
         public void StartGame(GameUserConnections gameUserConnection)
         {
             // Checkers in start position
@@ -44,10 +58,12 @@ namespace Chat_App.Services.Hubs.Game
             var reciver = _userRepository.GetUserByUserName(gameUserConnection.ReciverUserName);
             var sender = _userRepository.GetUserByUserName(gameUserConnection.SenderUserName);
 
-            _gameService = new GameService(sender, reciver);
+            _gameService.InitAllGamePieces(sender, reciver);
             _gameService.InitBoardState(p1Array, p2Array);
             _gameService.StartGame();
         }
+
+        public async Task<GameBoard> GetBoard() =>await Task.Run(()=> _gameService.GetGameBoard());
         
         public void RollDices() => _gameService.RollDices();
         public IEnumerable<int> GetDicesValue() => _gameService.GetDices();

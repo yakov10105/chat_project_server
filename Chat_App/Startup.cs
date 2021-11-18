@@ -52,6 +52,7 @@ namespace Chat_App
             
 
             services.AddScoped<Services.Auth.IAuthenticationService, Services.Auth.AuthenticationService>();
+            services.AddSingleton<IGameService, GameService>();
 
             services.AddAuthentication(x =>
             {
