@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Chat_App.Dtos;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Chat_App.Services.Hubs.Game
 {
@@ -61,9 +62,10 @@ namespace Chat_App.Services.Hubs.Game
             _gameService.InitAllGamePieces(sender, reciver);
             _gameService.InitBoardState(p1Array, p2Array);
             _gameService.StartGame();
+           
         }
 
-        public async Task<GameBoard> GetBoard() =>await Task.Run(()=> _gameService.GetGameBoard());
+        public async Task<string> GetBoard() => await Task.Run(() => JsonConvert.SerializeObject(_gameService.GetGameBoard()));
         
         public void RollDices() => _gameService.RollDices();
         public IEnumerable<int> GetDicesValue() => _gameService.GetDices();
