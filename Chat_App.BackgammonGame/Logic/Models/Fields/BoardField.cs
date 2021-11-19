@@ -8,11 +8,12 @@ namespace Chat_App.BackgammonGame.Logic.Models.Fields
 {
     public class BoardField:BasicField
     {
-        private int position;
-        public BoardField(LinkedList<Checker> checkers , int position)
+        public bool _canReceive;
+
+        public BoardField(LinkedList<Checker> checkers , int position, bool canReceive)
             : base(checkers , position)
         {
-
+            _canReceive = canReceive;
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Chat_App.Dtos;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Chat_App.Services.Hubs.Game
 {
@@ -35,6 +36,12 @@ namespace Chat_App.Services.Hubs.Game
         public async Task JoinGameAsync(JoinGameModel joinGameModel)
         {
             var gameConnection = GetGameUserConnection(joinGameModel);
+            await Groups.AddToGroupAsync(Context.ConnectionId, joinGameModel.RoomName);
+            await Groups.AddToGroupAsync(Context.ConnectionId, gameConnection.SenderUserName);
+            await Groups.AddToGroupAsync(Context.ConnectionId, gameConnection.ReciverUserName);
+
+            _connections[Context.ConnectionId] = gameConnection;
+
             StartGame(gameConnection);
             
         }
@@ -63,10 +70,16 @@ namespace Chat_App.Services.Hubs.Game
             _gameService.StartGame();
         }
 
-        public async Task<GameBoard> GetBoard() =>await Task.Run(()=> _gameService.GetGameBoard());
-        
-        public void RollDices() => _gameService.RollDices();
-        public IEnumerable<int> GetDicesValue() => _gameService.GetDices();
+        public async Task<string> GetBoard() => await Task.Run(() => JsonConvert.SerializeObject(_gameService.GetGameBoard()));
+
+        public async Task RollDices() => await Task.Run(() => _gameService.RollDices());
+
+        public async Task<IEnumerable<int>> GetDicesValue() => await Task.Run(() => _gameService.GetDices());
+
+        public async Task<IEnumerable<int>> GetPossibleMoves(int pos)
+        {
+            return await Task.Run(() => _gameService.GetPossibleMoveFromPosition(pos));
+        }
 
 
 

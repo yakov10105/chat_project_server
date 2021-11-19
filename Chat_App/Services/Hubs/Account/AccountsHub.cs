@@ -56,11 +56,11 @@ namespace Chat_App.Services.ChatService.Hubs.Acount
             return Clients.All.SendAsync("ConnectedUsers", _mapper.Map<IEnumerable<UserReadDto>>(users));
         }
 
-        public Task SendTyping(string userName)
+        public Task SendTyping(UserConnection userConnection)
         {
-            if (userName != null)
+            if (userConnection != null)
             {
-                return Clients.Group(userName).SendAsync("ReceiveTyping", userName);
+                return Clients.Group(userConnection.ReciverUserName).SendAsync("ReceiveTyping", userConnection.SenderUserName, userConnection.ReciverUserName);
             }
             return Task.Run(() => "");
         }

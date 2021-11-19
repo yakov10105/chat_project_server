@@ -49,7 +49,7 @@ namespace Chat_App.Services.GameServices
             BoardField[] boardFields = new BoardField[24];
             for (int i = 0; i < 24; i++)
             {
-                boardFields[i] = new BoardField(new LinkedList<Checker>(), i);
+                boardFields[i] = new BoardField(new LinkedList<Checker>(), i, false);
 
             }
 
@@ -76,6 +76,7 @@ namespace Chat_App.Services.GameServices
             GameBoard.ActivePlayer = GameBoard.Player1;
             GameBoard.DiceCup.ResetDiceCup();
         }
+
         public void InitBoardState(int[] player1Position, int[] player2Position)=>GameBoard.InitStartBoard(player1Position, player2Position);
        
         public int GetNumOfCheckersInGoalFieldPlayer1()=> GameBoard.GoalFieldPlayer1.GetCheckerCount();
@@ -100,6 +101,7 @@ namespace Chat_App.Services.GameServices
             GameBoard.PossibleMoves = GameBoard.Rules.CheckPossibleMoves(GameBoard.ActivePlayer);
             CheckPlayerTurn();
         }
+
         public List<int> GetDices()=>GameBoard.DiceCup.GetMoves();    
 
         public string GetActivePlayerName()=> GameBoard.ActivePlayer.name;
@@ -111,6 +113,7 @@ namespace Chat_App.Services.GameServices
             else
                 return GameBoard.Player2.name;
         }
+
         public String GetPlayer1Name()=>GameBoard.Player1.name;
         
         public String GetPlayer2Name()=>GameBoard.Player2.name;
@@ -213,11 +216,16 @@ namespace Chat_App.Services.GameServices
         public List<int> GetPossibleMoveFromPosition(int index)
         {
             var list = new List<int>();
-            foreach (var move in GameBoard.PossibleMoves)
+            if (GameBoard.PossibleMoves.Count > 0)
             {
-                if (move.From.GetPosition() == index)
+                foreach (var move in GameBoard.PossibleMoves)
                 {
-                    list.Add(move.To.GetPosition());
+                    GameBoard.BoardFields[move.To.GetPosition()]._canReceive = false;
+                    if (move.From.GetPosition() == index)
+                    {
+                        GameBoard.BoardFields[move.To.GetPosition()]._canReceive = true;
+                        list.Add(move.To.GetPosition());
+                    }
                 }
             }
             return list;
