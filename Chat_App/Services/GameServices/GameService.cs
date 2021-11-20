@@ -4,10 +4,11 @@ using Chat_App.BackgammonGame.Logic.Models.Fields;
 using Chat_App.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Chat_App.Services.GameServices
 {
-    public class GameService:IGameService
+    public class GameService : IGameService
     {
         public GameBoard GameBoard { get; set; }
         public Move Move { get; set; } = new Move();
@@ -84,6 +85,15 @@ namespace Chat_App.Services.GameServices
         public int GetNumOfCheckersInGoalFieldPlayer2()=>GameBoard.GoalFieldPlayer2.GetCheckerCount();
 
         public int GetNumberOfEliminatedCheckers()=>GameBoard.EliminatedField.GetCheckerCount();
+
+        public IEnumerable<Checker> GetNumberOfEliminatedCheckersForColor(bool isWhite)
+        {
+            if (isWhite)
+            {
+                return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "White");
+            }
+            return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "Black");
+        }
 
         public string GetEliminatedCheckerColor(int index)=>GameBoard.EliminatedField.GetCheckerAt(index).player.color;
         
@@ -167,12 +177,20 @@ namespace Chat_App.Services.GameServices
             try
             {
                 GameBoard.MoveChecker(GameBoard.ActivePlayer, fromField, toField, GameBoard.PossibleMoves);
-                GameBoard.BoardFields[toField.GetPosition()]._canReceive = false;
+                ResetCanReceive();
             }
             catch (NoValidMoveException e)
             {
 
                 throw new NoValidMoveException(e.Message);
+            }
+        }
+
+        public void ResetCanReceive()
+        {
+            foreach (var item in GameBoard.BoardFields)
+            {
+                item._canReceive = false;
             }
         }
 

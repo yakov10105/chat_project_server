@@ -144,13 +144,10 @@ namespace Chat_App.Services.Hubs.Game
 
         public async Task Move(Move move)
         {
-            await Task.Run(() =>
-            {
                 if (_gameService.AnyMoreMoves())
                 {
                     _gameService.MakeMove(move);
                 }
-            });
             if (_connections.TryGetValue(Context.ConnectionId, out GameUserConnections userConnection))
             {
                 string roomKey = GetRoomId(userConnection);
@@ -162,7 +159,7 @@ namespace Chat_App.Services.Hubs.Game
 
         public async Task<bool> CheckIfMovesLeft() => await Task.Run(() => _gameService.AnyMoreMoves());
 
-
+        public async Task<IEnumerable<Checker>> GetNumberOfEliminatedCheckers(bool isWhite) => await Task.Run(() => _gameService.GetNumberOfEliminatedCheckersForColor(isWhite));
 
         public async Task<string> GetBoard() => await Task.Run(() =>
         {

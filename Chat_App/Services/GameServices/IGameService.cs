@@ -16,6 +16,7 @@ namespace Chat_App.Services.GameServices
         int GetNumOfCheckersInGoalFieldPlayer1();
         int GetNumOfCheckersInGoalFieldPlayer2();
         int GetNumberOfEliminatedCheckers();
+        IEnumerable<Checker> GetNumberOfEliminatedCheckersForColor(bool isWhite);
         string GetEliminatedCheckerColor(int index);
         string GetColor(int index);
         string GetGoalColorPlayer1();
@@ -34,6 +35,7 @@ namespace Chat_App.Services.GameServices
         Player GetPlayer2();
         Player GetActivePlayer();
         void MakeMove(Move move);
+        void ResetCanReceive();
         void CheckPlayerTurn();
         bool CheckForWinner();
         string ReturnWinner();
