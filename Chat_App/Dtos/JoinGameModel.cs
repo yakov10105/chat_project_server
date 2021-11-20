@@ -9,5 +9,7 @@ namespace Chat_App.Dtos
     {
         public string UserName { get; set; }
         public string RoomName { get; set; }
+        public bool IsMyTurn{ get; set; }
+
     }
 }

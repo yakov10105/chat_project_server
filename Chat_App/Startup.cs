@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Chat_App.BackgammonGame.Logic.Models;
 using Chat_App.Data;
 using Chat_App.Data.DbConfig;
 using Chat_App.Services.ChatService;
@@ -94,6 +95,7 @@ namespace Chat_App
             services.AddSingleton<IDictionary<string, UserConnection>>(options => new Dictionary<string, UserConnection>());//Chat
             services.AddSingleton<IDictionary<string, string>>(options => new Dictionary<string, string>());//Server
             services.AddSingleton<IDictionary<string, GameUserConnections>>(options => new Dictionary<string, GameUserConnections>());//Game
+            services.AddSingleton<IDictionary<GameUserConnections, GameBoard>>(options => new Dictionary<GameUserConnections, GameBoard> ());//GameBoards
 
             services.AddSignalR();
 

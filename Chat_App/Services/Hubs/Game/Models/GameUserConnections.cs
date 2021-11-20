@@ -9,5 +9,6 @@ namespace Chat_App.Services.Hubs.Game.Models
     {
         public string SenderUserName { get; set; }
         public string ReciverUserName { get; set; }
+        public bool IsMyTurn { get; set; }
     }
 }

@@ -39,6 +39,7 @@ namespace Chat_App.Services.GameServices
         string ReturnWinner();
         bool AnyMoreMoves();
         List<int> GetPossibleMoveFromPosition(int index);
+        void UpdatePossibleMoves();
 
     }
 

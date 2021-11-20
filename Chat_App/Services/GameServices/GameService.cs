@@ -167,6 +167,7 @@ namespace Chat_App.Services.GameServices
             try
             {
                 GameBoard.MoveChecker(GameBoard.ActivePlayer, fromField, toField, GameBoard.PossibleMoves);
+                GameBoard.BoardFields[toField.GetPosition()]._canReceive = false;
             }
             catch (NoValidMoveException e)
             {
@@ -230,6 +231,8 @@ namespace Chat_App.Services.GameServices
             }
             return list;
         }
+
+        public void UpdatePossibleMoves() => GameBoard.PossibleMoves = GameBoard.Rules.CheckPossibleMoves(GetActivePlayer());
     }
 
 }
