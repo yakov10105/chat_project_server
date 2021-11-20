@@ -61,7 +61,7 @@ namespace Chat_App.Services.Hubs.Game
 
         }
 
-        private GameUserConnections GetGameUserConnection(JoinGameModel joinGameModel)
+        public GameUserConnections GetGameUserConnection(JoinGameModel joinGameModel)
         {
             var user1 = _userRepository.GetUserByUserName(joinGameModel.UserName);
             var user2Id = joinGameModel.RoomName.Split("-").First((u) => int.Parse(u) != user1.Id);
@@ -92,26 +92,6 @@ namespace Chat_App.Services.Hubs.Game
                     }).ContinueWith((Task) => _boards[userConnection] = _gameService.GameBoard);
 
                 }
-                //else
-                //{
-                //    if (_boards.TryGetValue(userConnection, out GameBoard gameBoard))
-                //    {
-                //        gameBoard.
-                //    }
-                //    //    // Checkers in start position
-                //    //    // Boardfield     0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 -  E  G2 G1
-                //    //    int[] p1Array = { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 3, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-                //    //    int[] p2Array = { 0, 0, 0, 0, 0, 5, 0, 3, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0 };
-
-                //        //    var reciver = _userRepository.GetUserByUserName(userConnection.SenderUserName);//Chaged-->
-                //        //    var sender = _userRepository.GetUserByUserName(userConnection.ReciverUserName);//<--Chaged
-
-                //        //    await Task.Run(() => {
-                //        //        _gameService.InitAllGamePieces(sender, reciver);
-                //        //        _gameService.InitBoardState(p2Array, p1Array);
-                //        //        _gameService.StartGame();
-                //        //    }).ContinueWith((Task) => _boards[userConnection] = _gameService.GameBoard);
-                //}
             }
         }
 

@@ -17,6 +17,7 @@ namespace Chat_App.Services.GameServices
         int GetNumOfCheckersInGoalFieldPlayer2();
         int GetNumberOfEliminatedCheckers();
         string GetEliminatedCheckerColor(int index);
+        void ResetCanReceive();
         string GetColor(int index);
         string GetGoalColorPlayer1();
         string GetGoalColorPlayer2();

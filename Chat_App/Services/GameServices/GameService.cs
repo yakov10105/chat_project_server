@@ -167,12 +167,20 @@ namespace Chat_App.Services.GameServices
             try
             {
                 GameBoard.MoveChecker(GameBoard.ActivePlayer, fromField, toField, GameBoard.PossibleMoves);
-                GameBoard.BoardFields[toField.GetPosition()]._canReceive = false;
+                ResetCanReceive();
             }
             catch (NoValidMoveException e)
             {
 
                 throw new NoValidMoveException(e.Message);
+            }
+        }
+
+        public void ResetCanReceive()
+        {
+            foreach (var item in GameBoard.BoardFields)
+            {
+                item._canReceive = false;
             }
         }
 
