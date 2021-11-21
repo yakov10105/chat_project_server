@@ -4,6 +4,7 @@ using Chat_App.BackgammonGame.Logic.Models.Fields;
 using Chat_App.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Chat_App.Services.GameServices
 {
@@ -84,6 +85,15 @@ namespace Chat_App.Services.GameServices
         public int GetNumOfCheckersInGoalFieldPlayer2()=>GameBoard.GoalFieldPlayer2.GetCheckerCount();
 
         public int GetNumberOfEliminatedCheckers()=>GameBoard.EliminatedField.GetCheckerCount();
+
+        public IEnumerable<Checker> GetNumberOfEliminatedCheckersForColor(bool isWhite)
+        {
+            if (isWhite)
+            {
+                return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "White");
+            }
+            return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "Black");
+        }
 
         public string GetEliminatedCheckerColor(int index)=>GameBoard.EliminatedField.GetCheckerAt(index).player.color;
         
