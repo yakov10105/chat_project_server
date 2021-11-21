@@ -23,7 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\ChatService\Hubs\Account\Models\" />
+    <Folder Include="Services\ChatService\" />
+    <Folder Include="Services\Hubs\Account\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Chat_App.BackgammonGame\Chat_App.BackgammonGame.csproj" />
   </ItemGroup>
 
 </Project>

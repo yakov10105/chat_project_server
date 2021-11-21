@@ -67,17 +67,6 @@ namespace Chat_App.Services.ChatService.Hubs
             return base.OnDisconnectedAsync(exception);
         }
 
-        //public Task SendUsersConnected(string room)
-        //{
-        //    var users = _connections.Values
-        //        .Where(c => c.Room == room)
-        //        .Select(c => c.User);
-
-        //    return Clients.Group(room).SendAsync("UsersInRoom", users);
-        //}
-
-  
-
         public string GetRoomId(UserConnection userConnection)
         {
             var sb = new StringBuilder();

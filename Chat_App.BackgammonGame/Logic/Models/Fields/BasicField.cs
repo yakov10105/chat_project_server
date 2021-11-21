@@ -8,8 +8,8 @@ namespace Chat_App.BackgammonGame.Logic.Models.Fields
 {
     public class BasicField
     {
-        protected LinkedList<Checker> checkers = null;
-        protected int position;
+        public LinkedList<Checker> checkers = null;
+        public int position;
 
         public BasicField(LinkedList<Checker> checkers)
         {

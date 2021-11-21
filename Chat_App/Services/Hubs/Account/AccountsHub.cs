@@ -3,6 +3,7 @@ using Chat_App.Data;
 using Chat_App.Dtos;
 using Chat_App.Models;
 using Chat_App.Services.Auth;
+using Chat_App.Services.Hubs.Game.Models;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -55,15 +56,37 @@ namespace Chat_App.Services.ChatService.Hubs.Acount
             return Clients.All.SendAsync("ConnectedUsers", _mapper.Map<IEnumerable<UserReadDto>>(users));
         }
 
-        public Task SendTyping(string userName)
+        public Task SendTyping(UserConnection userConnection)
         {
-            if (userName != null)
+            if (userConnection != null)
             {
-                return Clients.Group(userName).SendAsync("ReceiveTyping", userName);
+                return Clients.Group(userConnection.ReciverUserName).SendAsync("ReceiveTyping", userConnection.SenderUserName, userConnection.ReciverUserName);
             }
             return Task.Run(() => "");
         }
 
+
+
+        public async Task SendGameRequest(GameUserConnections gameUserConnection)
+        {
+                await Clients.Group(gameUserConnection.ReciverUserName)
+                             .SendAsync("ReceiveGameInvitation", gameUserConnection.SenderUserName);
+
+            //await Clients.Group(userName)
+            //            .SendAsync("WaitForGameAccept", userName);
+
+        }
+
+        public async Task SetGameOn(GameUserConnections gameUserConnection)
+        {
+
+            await Clients.Group(gameUserConnection.SenderUserName)
+                         .SendAsync("SetGame");
+
+            await Clients.Group(gameUserConnection.ReciverUserName)
+                         .SendAsync("SetGame");
+
+        }
 
 
 
