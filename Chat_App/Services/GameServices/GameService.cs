@@ -229,10 +229,17 @@ namespace Chat_App.Services.GameServices
             {
                 foreach (var move in GameBoard.PossibleMoves)
                 {
-                    GameBoard.BoardFields[move.To.GetPosition()]._canReceive = false;
-                    if (move.From.GetPosition() == index)
+                   if(move.To.position != 27 && move.To.position != 26)
                     {
-                        GameBoard.BoardFields[move.To.GetPosition()]._canReceive = true;
+                        GameBoard.BoardFields[move.To.GetPosition()]._canReceive = false;
+                        if (move.From.GetPosition() == index)
+                        {
+                            GameBoard.BoardFields[move.To.GetPosition()]._canReceive = true;
+                            list.Add(move.To.GetPosition());
+                        }
+                    }
+                    else
+                    {
                         list.Add(move.To.GetPosition());
                     }
                 }

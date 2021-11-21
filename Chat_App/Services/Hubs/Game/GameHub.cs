@@ -143,7 +143,6 @@ namespace Chat_App.Services.Hubs.Game
         public async Task<bool> CheckIfMovesLeft() => await Task.Run(() => _gameService.AnyMoreMoves());
 
 
-
         public async Task<string> GetBoard() => await Task.Run(() =>
         {
             return JsonConvert.SerializeObject(_gameService.GetGameBoard());
