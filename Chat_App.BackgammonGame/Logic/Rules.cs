@@ -260,7 +260,7 @@ namespace Chat_App.BackgammonGame.Logic.Models
                         fieldsToCheck.Add(goalFieldPlayer2);
                         if (AllCheckerOnBaseArea(activePlayer, fieldsToCheck))
                         {
-                            for (int i = 5; i <= 0; i--)
+                            for (int i = 5; i >= 0; i--)
                             {
                                 // If field corrensponding with move has checker owned by active player
                                 if ((boardFields[move-1].GetCheckerCount() > 0) && (boardFields[move - 1].GetPlayerInField().Equals(activePlayer)))
