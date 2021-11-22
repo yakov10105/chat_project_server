@@ -122,6 +122,22 @@ namespace Chat_App.Services.Hubs.Game
             await Task.Run(() => _gameService.UpdatePossibleMoves());
         }
 
+        public async Task CheckForWinner()
+        {
+            if (_connections.TryGetValue(Context.ConnectionId, out GameUserConnections userConnection))
+            {
+                if (_gameService.CheckForWinner())
+                {
+                    string roomKey = GetRoomId(userConnection);
+
+                    await Clients.Group(roomKey)
+                                 .SendAsync("AnyWinner",_gameService.ReturnWinner());
+                }
+            }
+        }
+
+
+
         public async Task Move(Move move)
         {
             await Task.Run(() =>
