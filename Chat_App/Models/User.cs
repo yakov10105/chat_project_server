@@ -46,6 +46,8 @@ namespace Chat_App.Models
 
         public int WinCoins { get; set; }
 
+        public int NewMessages { get; set; }
+
         public virtual ICollection<Message> SendedMessages { get; set; }
 
         public virtual ICollection<Message> RecievedMessages { get; set; }

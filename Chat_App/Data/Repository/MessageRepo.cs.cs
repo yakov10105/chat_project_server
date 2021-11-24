@@ -30,7 +30,8 @@ namespace Chat_App.Data
                 Date = DateTime.Now,
                 SenderId = senderId,
                 RecieverId = reciverId,
-                RoomId = roomId
+                RoomId = roomId,
+                RecieverHasRead = false
             };
             _context.Messages.Add(newMessage);
 
@@ -41,6 +42,18 @@ namespace Chat_App.Data
         }
 
         public List<Message> GetMessagesForRoom(int reciverId, int senderId) => _context.Messages.Where(rk => (rk.SenderId == senderId && rk.RecieverId == reciverId)|| (rk.SenderId == reciverId && rk.RecieverId == senderId)).ToList();
+
+        public List<Message> GetMessagesForUser(int toUserId, int fromUserId) => _context.Messages.Where(rk => (rk.SenderId == fromUserId && rk.RecieverId == toUserId)).ToList();
+
+        public List<Message> GetAllMessagesForUser(int toUserId) => _context.Messages.Where(rk => (rk.RecieverId == toUserId)).ToList();
+
+        public void UpdateHasRead(Message message)
+        {
+            message.RecieverHasRead = true;
+
+            _context.SaveChanges();
+
+        }
 
     }
 }

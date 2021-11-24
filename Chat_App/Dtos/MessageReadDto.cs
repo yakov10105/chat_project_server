@@ -12,6 +12,7 @@ namespace Chat_App.Dtos
         public string Text { get; set; }
         public string Date { get; set; }
         public string SenderUserName { get; set; }
+        public bool RecieverHasRead { get; set; }
 
 
         //public int RoomId { get; set; }

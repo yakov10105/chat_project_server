@@ -23,6 +23,9 @@ namespace Chat_App.Models
         [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
 
+        public bool RecieverHasRead { get; set; }
+
+
         public virtual User Sender { get; set; }
         public virtual User Reciever { get; set; }
         public virtual Room room { get; set; }

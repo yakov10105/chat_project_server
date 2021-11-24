@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Chat_App",
+    "\\Chat_App\\Services",
+    "\\Chat_App\\Services\\GameServices",
+    "\\Chat_App\\Services\\Hubs",
+    "\\Chat_App\\Services\\Hubs\\Game"
   ],
-  "SelectedNode": "\\Chat_App.sln",
+  "SelectedNode": "\\Chat_App\\Services\\Hubs\\Game\\GameHub.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -26,5 +26,8 @@ namespace Chat_App.Dtos
 
         public int RoomId { get; set; }
 
+        public int NewMessages{ get; set; }
+
+
     }
 }
