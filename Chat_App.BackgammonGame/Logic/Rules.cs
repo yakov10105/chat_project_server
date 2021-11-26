@@ -51,14 +51,25 @@ namespace Chat_App.BackgammonGame.Logic.Models
             // When moving out from eliminated field
             if (fromField.Equals(eliminatedField))
             {
+                bool blackEliminated = false;
+                bool whiteEliminated = false;
+                foreach (var checker in eliminatedField.checkers)
+                {
+                    if (checker.player.color == "Black")
+                        blackEliminated = true;
+
+                    else
+                        whiteEliminated = true;
+
+                }
                 if (OkToMoveToField(toField, activePlayer))
                 {
                     int d;
-                    if (activePlayer.Equals(player1))
+                    if (activePlayer.Equals(player1) && whiteEliminated)
                         d = -1;
                     else
                         d = 24;
-                    if (MoveMatchesDice(diceCup, d, toField.GetPosition()))
+                    if (MoveMatchesDice(diceCup, d, toField.GetPosition()) && blackEliminated)
                         return true;
 
                     return false;

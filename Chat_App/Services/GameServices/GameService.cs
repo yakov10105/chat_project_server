@@ -86,13 +86,13 @@ namespace Chat_App.Services.GameServices
 
         public int GetNumberOfEliminatedCheckers()=>GameBoard.EliminatedField.GetCheckerCount();
 
-        public IEnumerable<Checker> GetNumberOfEliminatedCheckersForColor(bool isWhite)
+        public int GetNumberOfEliminatedCheckersForColor(bool isWhite)
         {
             if (isWhite)
             {
-                return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "White");
+                return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "White").Count();
             }
-            return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "Black");
+            return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "Black").Count();
         }
 
         public string GetEliminatedCheckerColor(int index)=>GameBoard.EliminatedField.GetCheckerAt(index).player.color;
@@ -194,12 +194,19 @@ namespace Chat_App.Services.GameServices
             }
         }
 
-        public void CheckPlayerTurn()
+        public bool CheckPlayerTurn()
         {
             if (GameBoard.ActivePlayer.Equals(GameBoard.Player1) && !AnyMoreMoves())
+            {
                 GameBoard.ActivePlayer = GameBoard.Player2;
+                return true;
+            }
             else if (GameBoard.ActivePlayer.Equals(GameBoard.Player2) && !AnyMoreMoves())
+            {
                 GameBoard.ActivePlayer = GameBoard.Player1;
+                return true;
+            }
+            return false;
         }
 
         public bool CheckForWinner()

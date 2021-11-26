@@ -101,10 +101,12 @@ namespace Chat_App.Services.Hubs.Game
             {
                 string roomKey = GetRoomId(userConnection);
 
-                _gameService.CheckPlayerTurn();
-
-                await Clients.Group(roomKey)
-                             .SendAsync("ChangeTurn");
+                await Task.Run(() => _gameService.CheckPlayerTurn());
+                if (_gameService.CheckPlayerTurn())
+                {
+                    await Clients.Group(roomKey)
+                                 .SendAsync("ChangeTurn");
+                }
             }
         }
 
@@ -114,6 +116,7 @@ namespace Chat_App.Services.Hubs.Game
 
         public async Task<IEnumerable<int>> GetPossibleMoves(int pos)
         {
+            
             return await Task.Run(() => _gameService.GetPossibleMoveFromPosition(pos));
         }
 
@@ -153,12 +156,20 @@ namespace Chat_App.Services.Hubs.Game
 
                 await Clients.Group(roomKey)
                              .SendAsync("GetRoomBoard", _gameService.GetGameBoard());
+
+                //if (_gameService.CheckPlayerTurn())
+                //{
+                //    await Clients.Group(roomKey)
+                //                 .SendAsync("ChangeTurn");
+                //}
+
+                await Task.Run(() => _gameService.CheckPlayerTurn());
             }
         }
 
         public async Task<bool> CheckIfMovesLeft() => await Task.Run(() => _gameService.AnyMoreMoves());
 
-        public async Task<IEnumerable<Checker>> GetNumberOfEliminatedCheckers(bool isWhite) => await Task.Run(() => _gameService.GetNumberOfEliminatedCheckersForColor(isWhite));
+        public async Task<int> GetNumberOfEliminatedCheckers(bool isWhite) => await Task.Run(() => _gameService.GetNumberOfEliminatedCheckersForColor(isWhite));
 
         public async Task<string> GetBoard() => await Task.Run(() =>
         {
