@@ -37,10 +37,6 @@ namespace Chat_App.Controllers
             var a = gameService.GameBoard.PossibleMoves[0];
             var move = new Move() { from = a.From.GetPosition(), to = a.To.GetPosition() };
             gameService.MakeMove(move);
-
-            //return Ok(gameService.GameBoard);
-            //return Ok(gameService.GameBoard.BoardFields[0]);
-            //return Ok(gameService.GameBoard.BoardFields[0].GetCheckers());
             return Ok(gameService.GetGameBoard());
         }
         [HttpGet("get-moves")]

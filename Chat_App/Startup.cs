@@ -103,7 +103,7 @@ namespace Chat_App
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ChatAppDbContext dbContext)
         {
-            dbContext.Database.EnsureDeleted();
+           //dbContext.Database.EnsureDeleted();
             dbContext.Database.EnsureCreated();
 
             app.UseStaticFiles();
@@ -114,7 +114,7 @@ namespace Chat_App
             app.UseAuthorization();
 
             app.UseCors(builder => builder
-                .WithOrigins(new[] { "http://localhost:3000" })
+                .WithOrigins(new[] { "https://chatapp-client.azurewebsites.net" })
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
