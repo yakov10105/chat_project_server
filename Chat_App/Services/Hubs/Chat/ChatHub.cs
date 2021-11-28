@@ -33,7 +33,7 @@ namespace Chat_App.Services.ChatService.Hubs
                 int senderId = _userRepository.GetUserByUserName(userConnection.SenderUserName).Id;
                 await AddNewRoomAsync(roomKey);
                 var room = await GetRoomByKeyAsync(roomKey);
-
+                await ReadUnReadMessages(userConnection);
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomKey);
 
                 _connections[Context.ConnectionId] = userConnection;
@@ -55,6 +55,21 @@ namespace Chat_App.Services.ChatService.Hubs
                 await SaveNewMessageAsync(message, reciverId, senderId, room.Id);
             }
             
+        }
+
+        public async Task ReadUnReadMessages(UserConnection userConnection)
+        {
+            //string roomKey = GetRoomId(userConnection);
+            //var room = await GetRoomByKeyAsync(roomKey);
+            int toUserId = _userRepository.GetUserByUserName(userConnection.ReciverUserName).Id;
+            int fromUserId = _userRepository.GetUserByUserName(userConnection.SenderUserName).Id;
+
+
+            //var messagesToMe = await Task.Run(() => _messageRepository.GetMessagesForUser(reciverId, senderId));
+            var messagesToMe = _messageRepository.GetMessagesForUser(fromUserId, toUserId);
+            messagesToMe?.ForEach(m => _messageRepository.UpdateHasRead(m));
+
+
         }
 
         public override Task OnDisconnectedAsync(Exception exception)

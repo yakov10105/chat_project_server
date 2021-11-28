@@ -46,3 +46,15 @@ E:\VS\Projects\SelaSOA\New folder (10)\Chat_App.BackgammonGame\obj\Debug\net5.0\
 E:\VS\Projects\SelaSOA\New folder (10)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.dll
 E:\VS\Projects\SelaSOA\New folder (10)\Chat_App.BackgammonGame\obj\Debug\net5.0\ref\Chat_App.BackgammonGame.dll
 E:\VS\Projects\SelaSOA\New folder (10)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.pdb
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\bin\Debug\net5.0\Chat_App.BackgammonGame.deps.json
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\bin\Debug\net5.0\Chat_App.BackgammonGame.dll
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\bin\Debug\net5.0\ref\Chat_App.BackgammonGame.dll
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\bin\Debug\net5.0\Chat_App.BackgammonGame.pdb
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.csproj.AssemblyReference.cache
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.GeneratedMSBuildEditorConfig.editorconfig
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.AssemblyInfoInputs.cache
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.AssemblyInfo.cs
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.csproj.CoreCompileInputs.cache
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.dll
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\obj\Debug\net5.0\ref\Chat_App.BackgammonGame.dll
+E:\VS\Projects\SelaSOA\New folder (12)\Chat_App.BackgammonGame\obj\Debug\net5.0\Chat_App.BackgammonGame.pdb

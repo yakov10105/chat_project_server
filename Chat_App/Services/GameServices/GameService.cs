@@ -86,13 +86,13 @@ namespace Chat_App.Services.GameServices
 
         public int GetNumberOfEliminatedCheckers()=>GameBoard.EliminatedField.GetCheckerCount();
 
-        public IEnumerable<Checker> GetNumberOfEliminatedCheckersForColor(bool isWhite)
+        public int GetNumberOfEliminatedCheckersForColor(bool isWhite)
         {
             if (isWhite)
             {
-                return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "White");
+                return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "White").Count();
             }
-            return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "Black");
+            return GameBoard.EliminatedField.checkers.Where(c => c.player.color == "Black").Count();
         }
 
         public string GetEliminatedCheckerColor(int index)=>GameBoard.EliminatedField.GetCheckerAt(index).player.color;
@@ -109,7 +109,7 @@ namespace Chat_App.Services.GameServices
             GameBoard.DiceCup.RollDices();
             GameBoard.PossibleMoves = new List<PossibleMoves>();
             GameBoard.PossibleMoves = GameBoard.Rules.CheckPossibleMoves(GameBoard.ActivePlayer);
-            CheckPlayerTurn();
+            //CheckPlayerTurn();
         }
 
         public List<int> GetDices()=>GameBoard.DiceCup.GetMoves();    
@@ -194,12 +194,19 @@ namespace Chat_App.Services.GameServices
             }
         }
 
-        public void CheckPlayerTurn()
+        public bool CheckPlayerTurn()
         {
             if (GameBoard.ActivePlayer.Equals(GameBoard.Player1) && !AnyMoreMoves())
+            {
                 GameBoard.ActivePlayer = GameBoard.Player2;
+                return true;
+            }
             else if (GameBoard.ActivePlayer.Equals(GameBoard.Player2) && !AnyMoreMoves())
+            {
                 GameBoard.ActivePlayer = GameBoard.Player1;
+                return true;
+            }
+            return false;
         }
 
         public bool CheckForWinner()
@@ -210,18 +217,20 @@ namespace Chat_App.Services.GameServices
                 return false;
         }
 
-        public string ReturnWinner()
+        public IDictionary<string, string> ReturnWinnerLoser()
         {
-            string winner = "";
+            Dictionary<string, string> winnerLoser = new Dictionary<string, string>();
             if (GameBoard.GoalFieldPlayer1.GetCheckerCount() >= 15)
             {
-                winner = GetPlayer1Name();
+                winnerLoser.Add("winner", GetPlayer1Name());
+                winnerLoser.Add("loser", GetPlayer2Name());
             }
-            else if (GameBoard.GoalFieldPlayer2.GetCheckerCount() > 15)
+            else
             {
-                winner= GetPlayer2Name();
+                winnerLoser.Add("winner", GetPlayer2Name());
+                winnerLoser.Add("loser", GetPlayer1Name());
             }
-            return winner;
+            return winnerLoser;
         }
 
         public bool AnyMoreMoves()
@@ -235,13 +244,13 @@ namespace Chat_App.Services.GameServices
         public List<int> GetPossibleMoveFromPosition(int index)
         {
             var list = new List<int>();
+            ResetCanReceive();
             if (GameBoard.PossibleMoves.Count > 0)
             {
                 foreach (var move in GameBoard.PossibleMoves)
                 {
                    if(move.To.position != 27 && move.To.position != 26)
                     {
-                        GameBoard.BoardFields[move.To.GetPosition()]._canReceive = false;
                         if (move.From.GetPosition() == index)
                         {
                             GameBoard.BoardFields[move.To.GetPosition()]._canReceive = true;

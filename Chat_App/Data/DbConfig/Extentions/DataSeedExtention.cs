@@ -19,6 +19,7 @@ namespace Chat_App.Data.DbConfig.Extentions
                 UserName = "Yakov10105",
                 UserEmail = "Yakov@gmail.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                WinCoins = 200,
                 UserAge = 22
             };
             User idan = new User

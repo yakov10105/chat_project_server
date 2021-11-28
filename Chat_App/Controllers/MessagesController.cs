@@ -40,9 +40,12 @@ namespace Chat_App.Controllers
                 if (messages.Count>0)
                 {
                     var list = new List<MessageReadDto>();
-                    foreach (var item in messages)
+                    foreach (var message in messages)
                     {
-                        list.Add(new MessageReadDto { Text = item.Text, Date = item.Date.ToString("HH:mm (dd/MM/yyyy)"), SenderUserName = (_userRepository.GetUserById(item.SenderId).UserName) });
+                        list.Add(new MessageReadDto { Text = message.Text,
+                                                      Date = message.Date.ToString("HH:mm (dd/MM/yyyy)"),
+                                                      SenderUserName = (_userRepository.GetUserById(message.SenderId).UserName),
+                                                      RecieverHasRead = message.RecieverHasRead });
                     }
                     return Ok(list);
                 }
