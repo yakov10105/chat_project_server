@@ -109,7 +109,7 @@ namespace Chat_App.Services.GameServices
             GameBoard.DiceCup.RollDices();
             GameBoard.PossibleMoves = new List<PossibleMoves>();
             GameBoard.PossibleMoves = GameBoard.Rules.CheckPossibleMoves(GameBoard.ActivePlayer);
-            CheckPlayerTurn();
+            //CheckPlayerTurn();
         }
 
         public List<int> GetDices()=>GameBoard.DiceCup.GetMoves();    
@@ -217,18 +217,20 @@ namespace Chat_App.Services.GameServices
                 return false;
         }
 
-        public string ReturnWinner()
+        public IDictionary<string, string> ReturnWinnerLoser()
         {
-            string winner = "";
+            Dictionary<string, string> winnerLoser = new Dictionary<string, string>();
             if (GameBoard.GoalFieldPlayer1.GetCheckerCount() >= 15)
             {
-                winner = GetPlayer1Name();
+                winnerLoser.Add("winner", GetPlayer1Name());
+                winnerLoser.Add("loser", GetPlayer2Name());
             }
-            else if (GameBoard.GoalFieldPlayer2.GetCheckerCount() > 15)
+            else
             {
-                winner= GetPlayer2Name();
+                winnerLoser.Add("winner", GetPlayer2Name());
+                winnerLoser.Add("loser", GetPlayer1Name());
             }
-            return winner;
+            return winnerLoser;
         }
 
         public bool AnyMoreMoves()
@@ -242,13 +244,13 @@ namespace Chat_App.Services.GameServices
         public List<int> GetPossibleMoveFromPosition(int index)
         {
             var list = new List<int>();
+            ResetCanReceive();
             if (GameBoard.PossibleMoves.Count > 0)
             {
                 foreach (var move in GameBoard.PossibleMoves)
                 {
                    if(move.To.position != 27 && move.To.position != 26)
                     {
-                        GameBoard.BoardFields[move.To.GetPosition()]._canReceive = false;
                         if (move.From.GetPosition() == index)
                         {
                             GameBoard.BoardFields[move.To.GetPosition()]._canReceive = true;

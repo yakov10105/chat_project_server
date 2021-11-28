@@ -22,6 +22,7 @@ namespace Chat_App.Services.Hubs.Game
         private readonly IMessageRepo _messageRepository;
         private readonly IRoomRepo _roomRepository;
         private IGameService _gameService;
+        const int coinsAnount = 50;
         private bool? isGameOn;
 
         public GameHub(IDictionary<string, GameUserConnections> connections, IDictionary<GameUserConnections, GameBoard> boards, IGameService gameService, IUserRepo userRepository, IMessageRepo messageRepository, IRoomRepo roomRepo)
@@ -40,16 +41,14 @@ namespace Chat_App.Services.Hubs.Game
             var gameConnection = GetGameUserConnection(joinGameModel);
             await Groups.AddToGroupAsync(Context.ConnectionId, joinGameModel.RoomName);
             await Groups.AddToGroupAsync(Context.ConnectionId, joinGameModel.UserName);
-            //await Groups.AddToGroupAsync(Context.ConnectionId, gameConnection.SenderUserName);
-            //await Groups.AddToGroupAsync(Context.ConnectionId, gameConnection.ReciverUserName);
             _connections[Context.ConnectionId] = gameConnection;
+            //if (_userRepository.IsEnoughCoinsForGame(gameConnection.))
+            //{
 
+            //}
             if (_boards.TryGetValue(gameConnection, out GameBoard gameBoard))
             {
-
                 string roomKey = GetRoomId(gameConnection);
-
-                _gameService.CheckPlayerTurn();
 
                 await Clients.Group(roomKey)
                              .SendAsync("GetRoomBoard", _gameService.GetGameBoard());
@@ -101,11 +100,10 @@ namespace Chat_App.Services.Hubs.Game
             {
                 string roomKey = GetRoomId(userConnection);
 
-                await Task.Run(() => _gameService.CheckPlayerTurn());
                 if (_gameService.CheckPlayerTurn())
                 {
                     await Clients.Group(roomKey)
-                                 .SendAsync("ChangeTurn");
+                                     .SendAsync("ChangeTurn");
                 }
             }
         }
@@ -116,7 +114,7 @@ namespace Chat_App.Services.Hubs.Game
 
         public async Task<IEnumerable<int>> GetPossibleMoves(int pos)
         {
-            
+            _gameService.GetPossibleMoveFromPosition(pos);
             return await Task.Run(() => _gameService.GetPossibleMoveFromPosition(pos));
         }
 
@@ -132,9 +130,20 @@ namespace Chat_App.Services.Hubs.Game
                 if (_gameService.CheckForWinner())
                 {
                     string roomKey = GetRoomId(userConnection);
+                    var winnerLoser = _gameService.ReturnWinnerLoser();
+                    string winner = winnerLoser["winner"];
+                    string loser = winnerLoser["loser"];
 
                     await Clients.Group(roomKey)
-                                 .SendAsync("AnyWinner",_gameService.ReturnWinner());
+                                 .SendAsync("AnyWinner", winner);
+
+                    User winnerUser = _userRepository.GetUserByUserName(winner);
+
+                    User loserUser = _userRepository.GetUserByUserName(loser);
+
+                    _userRepository.AddCoins(winnerUser, coinsAnount);
+
+                    _userRepository.RemoveCoins(loserUser, coinsAnount);
                 }
             }
         }
@@ -162,8 +171,6 @@ namespace Chat_App.Services.Hubs.Game
                 //    await Clients.Group(roomKey)
                 //                 .SendAsync("ChangeTurn");
                 //}
-
-                await Task.Run(() => _gameService.CheckPlayerTurn());
             }
         }
 

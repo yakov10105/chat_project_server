@@ -38,7 +38,7 @@ namespace Chat_App.Services.GameServices
         void MakeMove(Move move);
         bool CheckPlayerTurn();
         bool CheckForWinner();
-        string ReturnWinner();
+        IDictionary<string, string> ReturnWinnerLoser();
         bool AnyMoreMoves();
         List<int> GetPossibleMoveFromPosition(int index);
         void UpdatePossibleMoves();

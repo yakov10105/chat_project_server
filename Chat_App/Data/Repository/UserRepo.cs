@@ -59,5 +59,19 @@ namespace Chat_App.Data
         }
 
         public IEnumerable<User> GetOnlineUsers() => _context.Users.Where(u => u.IsOnline == true);
+
+        public void AddCoins(User user, int coinsAmount)
+        {
+            user.WinCoins += coinsAmount;
+            _context.SaveChanges();
+        }
+
+        public void RemoveCoins(User user, int coinsAmount)
+        {
+            user.WinCoins -= coinsAmount;
+            _context.SaveChanges();
+        }
+
+        public bool IsEnoughCoinsForGame(User user, int coinsAmount) => user.WinCoins >= coinsAmount;
     }
 }
