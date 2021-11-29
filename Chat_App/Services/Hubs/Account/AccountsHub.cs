@@ -33,7 +33,7 @@ namespace Chat_App.Services.ChatService.Hubs.Acount
         {
             _connections[Context.ConnectionId] = userName;
             await Groups.AddToGroupAsync(Context.ConnectionId, userName);
-            await (Task.Run(() => _userRepository.UpdateIsOnline(_userRepository.GetUserByUserName(userName).Id, online: true)));
+            _userRepository.UpdateIsOnline(_userRepository.GetUserByUserName(userName).Id, online: true);//זאת הייתה הבעיה
             await SendUsersConnected();
         }
 
