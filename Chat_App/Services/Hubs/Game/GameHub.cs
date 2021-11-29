@@ -22,8 +22,7 @@ namespace Chat_App.Services.Hubs.Game
         private readonly IMessageRepo _messageRepository;
         private readonly IRoomRepo _roomRepository;
         private IGameService _gameService;
-        const int coinsAnount = 50;
-        private bool? isGameOn;
+        const int coinsAmount = 50;
 
         public GameHub(IDictionary<string, GameUserConnections> connections, IDictionary<GameUserConnections, GameBoard> boards, IGameService gameService, IUserRepo userRepository, IMessageRepo messageRepository, IRoomRepo roomRepo)
         {
@@ -33,23 +32,22 @@ namespace Chat_App.Services.Hubs.Game
             _messageRepository = messageRepository;
             _roomRepository = roomRepo;
             _gameService = gameService;
-            isGameOn = null;
         }
 
-        public async Task JoinGameAsync(JoinGameModel joinGameModel)
+        public async Task JoinGameAsync(GameUserConnections gameUserConnections)
         {
-            var gameConnection = GetGameUserConnection(joinGameModel);
-            await Groups.AddToGroupAsync(Context.ConnectionId, joinGameModel.RoomName);
-            await Groups.AddToGroupAsync(Context.ConnectionId, joinGameModel.UserName);
-            _connections[Context.ConnectionId] = gameConnection;
+            //var gameConnection = GetGameUserConnection(joinGameModel);
+            string roomKey = GetRoomId(gameUserConnections);
+            await Groups.AddToGroupAsync(Context.ConnectionId, roomKey);
+            await Groups.AddToGroupAsync(Context.ConnectionId, gameUserConnections.SenderUserName);
+            await Groups.AddToGroupAsync(Context.ConnectionId, gameUserConnections.ReciverUserName);
+            _connections[Context.ConnectionId] = gameUserConnections;
             //if (_userRepository.IsEnoughCoinsForGame(gameConnection.))
             //{
 
             //}
-            if (_boards.TryGetValue(gameConnection, out GameBoard gameBoard))
+            if (_boards.TryGetValue(gameUserConnections, out GameBoard gameBoard))
             {
-                string roomKey = GetRoomId(gameConnection);
-
                 await Clients.Group(roomKey)
                              .SendAsync("GetRoomBoard", _gameService.GetGameBoard());
             }
@@ -141,9 +139,9 @@ namespace Chat_App.Services.Hubs.Game
 
                     User loserUser = _userRepository.GetUserByUserName(loser);
 
-                    _userRepository.AddCoins(winnerUser, coinsAnount);
+                    _userRepository.AddCoins(winnerUser, coinsAmount);
 
-                    _userRepository.RemoveCoins(loserUser, coinsAnount);
+                    _userRepository.RemoveCoins(loserUser, coinsAmount);
                 }
             }
         }
@@ -188,6 +186,11 @@ namespace Chat_App.Services.Hubs.Game
         public override Task OnDisconnectedAsync(Exception exception)
         {
             if (_connections.TryGetValue(Context.ConnectionId, out GameUserConnections userConnection))
+            {
+                _connections.Remove(Context.ConnectionId);
+            }
+
+            if (_connections.TryGetValue(Context.ConnectionId, out GameUserConnections userConnectionn))
             {
                 _connections.Remove(Context.ConnectionId);
             }

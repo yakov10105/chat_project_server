@@ -30,6 +30,7 @@ namespace Chat_App.Data.DbConfig.Extentions
                 UserName = "Idan111",
                 UserEmail = "Idan@gmail.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                WinCoins = 200,
                 UserAge = 22
             };
             User yosi = new User
@@ -40,6 +41,7 @@ namespace Chat_App.Data.DbConfig.Extentions
                 UserName = "Yosi111",
                 UserEmail = "Yosi@gmail.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                WinCoins = 200,
                 UserAge = 22
             };
             User elon = new User
@@ -50,6 +52,7 @@ namespace Chat_App.Data.DbConfig.Extentions
                 UserName = "Elon111",
                 UserEmail = "Elon@gmail.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                WinCoins = 200,
                 UserAge = 22
             };
             User jeff = new User
@@ -60,6 +63,7 @@ namespace Chat_App.Data.DbConfig.Extentions
                 UserName = "Jeff122",
                 UserEmail = "Jeff@gmail.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                WinCoins = 200,
                 UserAge = 22
             };
             User bil = new User
@@ -70,6 +74,7 @@ namespace Chat_App.Data.DbConfig.Extentions
                 UserName = "Bill8787",
                 UserEmail = "Bill@gmail.com",
                 Password = BCrypt.Net.BCrypt.HashPassword("123456"),
+                WinCoins = 200,
                 UserAge = 22
             };
             var room12 = new Room

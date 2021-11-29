@@ -114,7 +114,7 @@ namespace Chat_App
             app.UseAuthorization();
 
             app.UseCors(builder => builder
-                .WithOrigins(new[] { "http://localhost:3000" })
+                .WithOrigins(new[] { "http://localhost:3000", "https://chat-project-client.azurewebsites.net" })
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
