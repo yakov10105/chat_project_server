@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "O/ihCygLrGLy/1O9HP4n+HzgRxZag+zP4X/UFi0UNE0ETve4tqqsT1Z9JgiOgmj5bLRiQEme8N5+5mkCkPXh6g==",
+  "dgSpecHash": "KfHcnkT3yunpTLh5NZWXCcpAf0PnvHblSws8C1oMLzImWK5i2UkXrkWzpbdzT+zepyC6QT4fZHyXOOJtFv4e8A==",
   "success": true,
-  "projectFilePath": "E:\\VS\\Projects\\SelaSOA\\New folder (12)\\Chat_App\\Chat_App.csproj",
+  "projectFilePath": "E:\\VS\\Projects\\SelaSOA\\New folder (13)\\chat_project_server\\Chat_App\\Chat_App.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\idan\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\idan\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
